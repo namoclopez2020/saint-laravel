@@ -144,20 +144,7 @@ Messenger().post({
 
 });
      }
-       $(function () {
-
-Messenger.options = {
-    extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-    theme: 'flat',
-    messageDefaults: {
-        showCloseButton: true
-    }
-}
-<?php 
-//echo display_msg($msg); 
-?>
-
-});
+     
      </script>
 
      <script>
@@ -166,5 +153,6 @@ Messenger.options = {
  
     
      </script>
+    @include('partials.message')
   </body>
 </html>
