@@ -89,6 +89,8 @@ class OfficeController extends Controller
      */
     public function destroy(Office $office)
     {
-        //
+        $office->delete();
+        return redirect()->route('office.index')
+        ->with('status','La sucursal fue eliminada con éxito');
     }
 }

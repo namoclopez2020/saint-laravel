@@ -26,3 +26,5 @@ Route::resource('client', 'ClientController');
 Route::resource('categorie', 'CategorieController');
 
 Route::resource('office', 'OfficeController');
+
+Route::resource('warehouse', 'WarehouseController');

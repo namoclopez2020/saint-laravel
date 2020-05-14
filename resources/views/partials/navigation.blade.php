@@ -17,8 +17,8 @@
         <li><a href="{{ route('home')}}"> <i class="icon-home"></i>Home                             </a></li>
           <li><a href="#formsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>Almacenes</a>
             <ul id="formsDropdown" class="collapse list-unstyled ">
-              <li><a href="form-almacen.php">Crear almacen</a></li>
-              <li><a href="list-almacen.php">Lista de almacenes</a></li>
+              <li><a href="{{ route('warehouse.create') }}">Crear almacen</a></li>
+              <li><a href="{{ route('warehouse.index') }}">Lista de almacenes</a></li>
               
            
             </ul>
