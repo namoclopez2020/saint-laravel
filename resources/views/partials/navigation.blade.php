@@ -15,10 +15,18 @@
         <h5 class="sidenav-heading">Principal</h5>
         <ul id="side-main-menu" class="side-menu list-unstyled">                  
         <li><a href="{{ route('home')}}"> <i class="icon-home"></i>Home                             </a></li>
-          <li><a href="#formsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>Almacen</a>
+          <li><a href="#formsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>Almacenes</a>
             <ul id="formsDropdown" class="collapse list-unstyled ">
               <li><a href="form-almacen.php">Crear almacen</a></li>
               <li><a href="list-almacen.php">Lista de almacenes</a></li>
+              
+           
+            </ul>
+          </li>
+          <li><a href="#sucursalDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>Sucursales</a>
+            <ul id="sucursalDropdown" class="collapse list-unstyled ">
+              <li><a href="{{ route ('office.create') }}">Crear sucursal</a></li>
+              <li><a href="{{ route ('office.index') }}">Lista de sucursales</a></li>
               
            
             </ul>
@@ -42,7 +50,7 @@
           
           <li><a href="#chartsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>Instancias</a>
             <ul id="chartsDropdown" class="collapse list-unstyled ">
-              <li><a href="categorie.php">Lista de instancias</a></li>
+            <li><a href="{{ route('categorie.index')}}">Lista de instancias</a></li>
             </ul>
           </li>
           <li><a href="#tablesDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>Producto </a>
