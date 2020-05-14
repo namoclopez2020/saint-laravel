@@ -47,6 +47,14 @@
            
             </ul>
           </li>
+          <li><a href="#userDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-user"></i>Usuarios</a>
+            <ul id="userDropdown" class="collapse list-unstyled ">
+            <li><a href="{{ route('user.create') }}">Agregar usuario</a></li>
+            <li><a href="{{ route ('user.index') }}">Registro de usuarios</a></li>
+              
+           
+            </ul>
+          </li>
           
           <li><a href="#chartsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>Instancias</a>
             <ul id="chartsDropdown" class="collapse list-unstyled ">
