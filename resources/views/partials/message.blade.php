@@ -9,6 +9,16 @@
    
 @endif
 
+@if ( session('error'))
+
+    <script>
+         display_msg(' {{ session('error')}} ' , 'error');
+       
+       
+    </script>
+   
+@endif
+
 
     
 @if ($errors->any())

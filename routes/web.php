@@ -30,3 +30,7 @@ Route::resource('office', 'OfficeController');
 Route::resource('warehouse', 'WarehouseController');
 
 Route::resource('user', 'UserController');
+
+Route::PATCH('/password/{user}','UserController@password')->name('user.password');
+
+Route::PATCH('/status/{user}','UserController@status')->name('user.status');

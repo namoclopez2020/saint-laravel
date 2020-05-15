@@ -12,6 +12,10 @@
                 <form action="{{ route('user.store') }}" method="post">
                     @include('user._form')
                     <div class="form-group">
+                        <label for="codigo_almacen" >Contraseña:</label>
+                       <input type="password" name="password" class="form-control form-control-sm" >
+                    </div>
+                    <div class="form-group">
                         <label for="">Confirmar contraseña</label>
                         <input type="password" name="confirm_password" class="form-control form-control-sm">
                     </div>

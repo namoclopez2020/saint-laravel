@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,15 +45,19 @@ class UserController extends Controller
     public function store(SaveUserRequest $request)
     {   
         if($request->validated()['confirm_password'] == $request->validated()['password']):
+           
             User::create([
                 'name' => $request->validated()['name'],
                 'email' => $request->validated()['email'],
-                'password' => Hash::make($request->validated()['password'])
+                'role' => $request->validated()['role'],
+                'password' => Hash::make($request->validated()['password']),
+                'status' => true
+                
             ]);
             return redirect()->route('user.index')->with('status','Usuario creado correctamente');
         else:
             
-            return back()->with('status','Las contraseñas no coinciden');
+            return back()->with('error','Las contraseñas no coinciden');
         endif;
         
     }
@@ -71,11 +79,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $role = Role::latest()->get();
+        return view('user.edit',[
+            'role' => $role,
+            'user' => $user
+        ]);
     }
 
+    public function password (Request $request,User $user){
+       $request = $request->validate([
+            'password' => 'required'
+        ]);
+        
+       // return Hash::make($request['password']);
+        $user->update([
+            'password' => Hash::make($request['password'])
+        ]);
+
+        return redirect()->route('user.index')->with('status','contraseña actualizada exitosamente');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -83,9 +107,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $fields = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'role' => 'required'
+        ]);
+        
+         $user->update($fields);
+
+        return redirect()->route('user.index')->with('status','El usuario fue actualizado correctamente');
     }
 
     /**
@@ -94,8 +126,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('status','El usuario fue eliminado correctamente');
+    }
+
+    public function status(Request $request,User $user){
+        
+      
+        $user->status = !$user->status;
+        $user->save();
+       
+        return redirect()->route('user.index')->with('status','Usuario actualizado correctamente');
     }
 }

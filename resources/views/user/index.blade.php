@@ -17,6 +17,7 @@
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Email</th>
+                    <th>Estado</th>
                     <th>Rol</th>
                     <th>Fecha agregado</th>
                     <th>Fecha Actualizado</th>
@@ -30,6 +31,14 @@
                         <td>{{  $loop->iteration }}</td>
                         <td>{{ $itemUser->name}}</td>
                         <td>{{ $itemUser->email}}</td>
+                        <td>
+                            <form action="{{ route('user.status',$itemUser)}}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button class="btn {{$itemUser->status ? 'btn-success' : 'btn-secondary'}} rounded btn-sm">{{$itemUser->status ? 'Activo' : 'Inactivo'}}</button>
+                            
+                            </form>
+                        </td>   
                         <td>{{ $itemUser->user_level->name}}</td>
                         <td>{{ $itemUser->created_at->format('d-m-Y H:g:i A')}}</td>
                         <td>{{ $itemUser->updated_at->diffForHumans()}}</td>

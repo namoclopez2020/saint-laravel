@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveOfficeRequest;
 
 class OfficeController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
