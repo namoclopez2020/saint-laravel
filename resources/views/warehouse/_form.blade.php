@@ -11,9 +11,12 @@
     <select name="office_id" class="form-control">
         @forelse ($office as $itemOffice)
             <option value="{{$itemOffice->id}}"
-             @if ($warehouse->office_id == $itemOffice->id)
-                 selected
-             @endif   
+                @isset($warehouse)
+                @if ($warehouse->office_id == $itemOffice->id)
+                selected
+            @endif  
+                @endisset
+             
                 >{{$itemOffice->nombre}}</option>
         @empty
             
