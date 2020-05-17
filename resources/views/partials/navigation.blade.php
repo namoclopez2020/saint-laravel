@@ -4,8 +4,8 @@
       <!-- Sidebar Header    -->
       <div class="sidenav-header d-flex align-items-center justify-content-center">
         <!-- User Info-->
-        <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img src="./libs/img/logo_login.png" alt="person" class="img-fluid rounded-circle"></a>
-          <h2 class="h5"></span>
+        <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img src="/assets/img/logo_login.png" alt="person" class="img-fluid rounded-circle"></a>
+        <h2 class="h5">{{ auth()->user()->name}}</h2><span>{{ auth()->user()->user_level->name}}</span>
         </div>
         <!-- Small Brand information, appears on minimized sidebar-->
         <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -63,8 +63,8 @@
           </li>
           <li><a href="#tablesDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>Producto </a>
             <ul id="tablesDropdown" class="collapse list-unstyled ">
-              <li><a href="add_product.php">Agregar producto</a></li>
-              <li><a href="product-list.php">Lista de productos</a></li>
+              <li><a href="{{route('product.create')}}">Agregar producto</a></li>
+              <li><a href="{{route('product.index')}}">Lista de productos</a></li>
               <li><a href="seriales.php">Seriales</a></li>
             </ul>
           </li>

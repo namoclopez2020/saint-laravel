@@ -34,3 +34,11 @@ Route::resource('user', 'UserController');
 Route::PATCH('/password/{user}','UserController@password')->name('user.password');
 
 Route::PATCH('/status/{user}','UserController@status')->name('user.status');
+
+Route::get('/product/list/{empaque}','ProductController@empaque');
+
+Route::get('/product/impuesto/{impuesto}','ProductController@impuesto');
+
+Route::resource('product', 'ProductController');
+
+

@@ -22,6 +22,9 @@
 function load(){
 	
 	var empaque=$('#usa_empaque').find(":selected").val();
+	if(empaque==""){
+		empaque=0;
+	}
 	if(empaque == "1"){
 	//	$('#serial').hide();
 	$("#es_serial option[value='0']").attr("selected",true);
@@ -38,9 +41,9 @@ function load(){
 	
 $("#loader2").fadeIn('slow');
 	$.ajax({
-		type:"POST",
-		url:'./ajax/formulario_ingreso.php',
-		data:"empaque="+empaque,
+		type:"GET",
+		url:'list/'+empaque,
+		//data:"empaque="+empaque,
 		 beforeSend: function(objeto){
 	$(".resultados").html("Mensaje: Cargando...");
 	  },
@@ -58,9 +61,9 @@ function load1(){
 	var impuesto=$('#usa_impuesto').find(":selected").val();
 	$("#loader2").fadeIn('slow');
 	$.ajax({
-		type:"POST",
-		url:'./ajax/formulario_ingreso.php',
-		data:"impuesto="+impuesto,
+		type:"GET",
+		url:'impuesto/'+impuesto,
+		
 		 beforeSend: function(objeto){
 	$(".resultados1").html("Mensaje: Cargando...");
 	  },
@@ -83,7 +86,7 @@ function load1(){
 		 var parametros = $(this).serialize();
 			 $.ajax({
 					type: "POST",
-					url: "ajax/agregar_nuevo_producto.php",
+					url: "/product",
 					data: parametros,
 					 beforeSend: function(objeto){
 					

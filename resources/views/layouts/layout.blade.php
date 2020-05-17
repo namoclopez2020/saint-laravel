@@ -154,5 +154,6 @@ Messenger().post({
     
      </script>
     @include('partials.message')
+    @yield('scripts')
   </body>
 </html>
