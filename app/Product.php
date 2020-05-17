@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Categorie;
 use App\Warehouse;
+use App\Provider;
 
 class Product extends Model
 {
@@ -16,5 +17,8 @@ class Product extends Model
     }
     public function warehouse (){
         return $this->belongsTo(Warehouse::class);
+    }
+    public function provider (){
+        return $this->belongsToMany(Provider::class);
     }
 }

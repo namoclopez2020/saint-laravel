@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Provider;
 use App\Warehouse;
 use App\Categorie;
+use App\product_provider;
 
 
 class ProductController extends Controller
@@ -73,11 +74,14 @@ class ProductController extends Controller
 
         //insertar los proveedores de productos
         $contador = count($request['proveedor']);
-        for($i=1;$i<=$contador;$i++){
-
+        for($i=0;$i<$contador;$i++){
+            product_provider::create([
+                'product_id' => $product->id,
+                'provider_id' => $request['proveedor'][$i]
+            ]);
         }
 
-        return $product;
+        return true;
        // Product::create($request->validated());
        // return true;
     }

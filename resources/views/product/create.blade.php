@@ -18,8 +18,8 @@
                 <div class="card-body" id="padre">
                     <div class="col-md-12">
                         <!-- para pruebas -->
-                        <form method="post" action=" {{route('product.store')}} " id="agregar_producto" name="agregar_producto" method="POST"  class="clearfix" >
-                   <!--     <form method="post" id="agregar_productos" name="agregar_productos" method="POST"  class="clearfix" > -->
+                     <!--  <form method="post" action="  " id="agregar_producto" name="agregar_producto" method="POST"  class="clearfix" > -->
+                        <form method="post" id="agregar_productos" name="agregar_productos" method="POST"  class="clearfix" > 
                             @csrf  
                             <div class="form-group">
                                 <div class="input-group">

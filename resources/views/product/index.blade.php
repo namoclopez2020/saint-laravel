@@ -26,6 +26,7 @@
                                 <th>Categoria</th>
                                 <th>Almacen</th>
                                 <th>Costos</th>
+                                <th>Proveedores</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -43,6 +44,13 @@
                                         <td> {{$itemProducto->categorie->nombre}} </td>
                                         <td> {{$itemProducto->warehouse->nombre}} </td>
                                         <td> {!! costos($itemProducto->costo_anterior,$itemProducto->costo_actual,$itemProducto->costo_promedio) !!} </td>
+                                        <td> 
+                                        @forelse ($itemProducto->provider as $item)
+                                            {{$item->nombre}}
+                                        @empty
+                                            
+                                        @endforelse    
+                                        </td>
                                         <td class="text-center">
                                             <div class="btn-group">
                                                 <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar(' {{$itemProducto->id}} ',' {{urlencode($itemProducto->nombre)}} ')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
