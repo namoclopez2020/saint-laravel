@@ -29,11 +29,11 @@ class CreateProductsTable extends Migration
             $table->boolean('es_serial');
             $table->foreignId('warehouse_id')
             ->constrained('warehouses')->onDelete('cascade');
-            $table->string('impuesto');
+            $table->string('impuesto')->default('0');
             $table->boolean('usa_empaque');
             $table->string('medida_paq')->nullable();
             $table->string('medida_und');
-            $table->integer('fraccion')->unsigned();
+            $table->integer('fraccion')->unsigned()->default(0);
             $table->string('stock_paq')->nullable();
             $table->string('stock_und')->nullable();
             $table->string('min_paq')->default('0');

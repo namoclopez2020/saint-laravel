@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
             TipoDocTableSeeder::class,
             CategorieTableSeeder::class,
             RoleTableSeed::class,
-            UserTableSeeder::class
+            UserTableSeeder::class,
+            OfficeTableSeeder::class,
+            WarehouseTableSeeder::class,
+            ProviderTableSeeder::class,
         ]);
     }
 }

@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <select class="form-control" name="medida_empaque" id="medida_empaque"  required>
+                <select class="form-control" name="medida_paq" id="medida_paq"  required>
                     <option value="">Medida para empaque</option>
                     <option value="paq">paquete</option>
                     <option value="kg">Kilos</option>

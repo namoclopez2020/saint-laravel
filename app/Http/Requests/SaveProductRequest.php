@@ -25,7 +25,7 @@ class SaveProductRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'codigo' => 'required|unique',
+            'codigo' => 'required|unique:products',
             'costo_anterior' => 'required',
             'costo_promedio' => 'required',
             'costo_actual' => 'required',

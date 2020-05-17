@@ -29,7 +29,7 @@
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @forelse ($product as $itemProduct)
+                                @forelse ($product as $itemProducto)
                                     <tr>
                                         <td> {{$loop->iteration}} </td>
                                         <td> {{$itemProducto->nombre}} </td>
@@ -38,15 +38,16 @@
                                         <td> {{$itemProducto->es_serial ? 'Sí': 'No' }} </td>
                                         <td> {{$itemProducto->medida_paq}} / {{$itemProducto->medida_und}} </td>
                                         <td> {{ is_null($itemProducto->fraccion) ? 'Sin fracción' : $itemProducto->fraccion }} </td>
-                                        <td></td>
+                                        <td> {{ stock($itemProducto->stock_paq,$itemProducto->stock_und,$itemProducto->medida_paq,$itemProducto->medida_und) }} </td>
+                                        <td> {{ stock($itemProducto->min_paq,$itemProducto->min_und,$itemProducto->medida_paq,$itemProducto->medida_und) }}</td>
                                         <td> {{$itemProducto->categorie->nombre}} </td>
                                         <td> {{$itemProducto->warehouse->nombre}} </td>
-                                        <td></td>
+                                        <td> {!! costos($itemProducto->costo_anterior,$itemProducto->costo_actual,$itemProducto->costo_promedio) !!} </td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar('<?php echo $producto['id_producto']?>','<?php echo urlencode($producto['nombre_producto']) ?>')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
+                                                <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar(' {{$itemProducto->id}} ',' {{urlencode($itemProducto->nombre)}} ')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
                                 
-                                                <a href="delete_almacen.php?id=<?php echo (int)$producto['id_producto'];?>"  class="btn  btn-danger ml-3"  >
+                                                <a href="  "  class="btn  btn-danger ml-3"  >
                                                     <span class=" fa fa-trash"> </span>
                                                 </a>
                                         
@@ -68,4 +69,21 @@
         </div>
     </div>
 </div>
+@endsection
+@include('product.modal.detalles')
+@section('scripts')
+    <script>
+
+        function mostrar(id,nombre) {
+            $(document).ready(function () {
+                $("#result").hide("slow");
+                $("#cargar_reporte").show("slow");
+                $("#editar_resul").load("./ajax/ver_detalle_producto.php?id="+id+"&producto="+nombre, " ", function () {
+                    $("#editar_resul").show("slow");
+                    $("#cargar_reporte").hide("slow");
+                });
+            });
+        }
+
+    </script>
 @endsection

@@ -20,8 +20,8 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::latest()->get();
-
-        return view('product.index',compact ('product'));
+        
+        return view('product.index', compact('product'));
     }
 
     /**
@@ -46,8 +46,40 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(SaveProductRequest $request)
-    {
-        return true;
+    {   
+        $product =  Product::create($request->validated());
+
+        if($request['usa_empaque']):
+            $request->validate([
+                'fraccion' => 'required',
+                'medida_paq' => 'required',
+                'min_paq' => 'required'
+             ]);
+            
+            $product->usa_empaque = $request['usa_empaque'];
+            $product->medida_paq = $request['medida_paq'];
+            $product->fraccion = $request['fraccion'];
+            $product->min_paq = $request['min_paq'];
+            $product->save();
+        endif;
+        if($request['usa_impuesto']):
+            $request->validate([
+                'impuesto' => 'required'
+            ]);
+            
+            $product->impuesto = $request['impuesto'];
+            $product->save();  
+        endif;
+
+        //insertar los proveedores de productos
+        $contador = count($request['proveedor']);
+        for($i=1;$i<=$contador;$i++){
+
+        }
+
+        return $product;
+       // Product::create($request->validated());
+       // return true;
     }
 
     /**

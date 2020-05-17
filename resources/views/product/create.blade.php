@@ -18,15 +18,15 @@
                 <div class="card-body" id="padre">
                     <div class="col-md-12">
                         <!-- para pruebas -->
-                        <!-- <form method="post" action="ajax/agregar_nuevo_producto.php" id="agregar_producto" name="agregar_producto" method="POST"  class="clearfix" >-->
-                        <form method="post" id="agregar_productos" name="agregar_productos" method="POST"  class="clearfix" >
+                        <form method="post" action=" {{route('product.store')}} " id="agregar_producto" name="agregar_producto" method="POST"  class="clearfix" >
+                   <!--     <form method="post" id="agregar_productos" name="agregar_productos" method="POST"  class="clearfix" > -->
                             @csrf  
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-th-large"></i>
                                     </span>
-                                    <input type="text" class="form-control" name="product-title" id="product-title" placeholder="Descripcion" >
+                                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Descripcion" >
                                 </div>
                             </div>
                             <div class="form-group">
@@ -34,13 +34,13 @@
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-th-large"></i>
                                     </span>
-                                    <input type="text" class="form-control" name="codigo_producto" id="codigo_producto" placeholder="Codigo del producto" required>
+                                    <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Codigo del producto" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select class="form-control" name="product-almacen" required>
+                                        <select class="form-control" name="warehouse_id" required>
                                             <option value="">Selecciona una almacen</option>
                                             @forelse ($warehouse as $itemWarehouse)
                                             <option value=" {{$itemWarehouse->id}} "> {{$itemWarehouse->nombre}} </option>
@@ -51,7 +51,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" name="product-categorie"    required>
+                                        <select class="form-control" name="categorie_id"    required>
                                             <option value="">Selecciona una instancia</option>
                                             @forelse ($categorie as $itemCategorie)
                                             <option value=" {{$itemCategorie->id}} "> {{$itemCategorie->nombre}} </option>
@@ -69,7 +69,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" name="medida_unidad" id="medida_unidad"  required>
+                                        <select class="form-control" name="medida_und" id="medida_und"  required>
                                             <option value="">Medida para unidad</option>
                                             <option value="und">unidad</option>
                                             <option value="gr">gramos</option>
