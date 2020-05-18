@@ -18,6 +18,15 @@ function documento ($tipo_documento){
     return $documento;
 }
 
+function estado ($estado){
+  if($estado){
+      return "Vigente";
+  }
+  else{
+      return "En espera";
+  }
+}
+
 function stock($stock_paq,$stock_und,$medida_paq,$medida_und){
 
     if($stock_und=="" && $stock_paq==""){

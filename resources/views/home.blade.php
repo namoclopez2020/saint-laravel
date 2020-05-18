@@ -407,3 +407,7 @@
 
   @include('partials.footer')
 @endsection
+
+@section('scripts')
+<script src="{{ asset('/assets/js/charts-home.js') }}"></script>
+@endsection

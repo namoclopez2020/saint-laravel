@@ -53,7 +53,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar(' {{$itemProducto->id}} ',' {{urlencode($itemProducto->nombre)}} ')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
+                                                <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar('{{$itemProducto->id}}')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
                                 
                                                 <a href="  "  class="btn  btn-danger ml-3"  >
                                                     <span class=" fa fa-trash"> </span>
@@ -82,11 +82,12 @@
 @section('scripts')
     <script>
 
-        function mostrar(id,nombre) {
+        function mostrar(producto) {
             $(document).ready(function () {
                 $("#result").hide("slow");
                 $("#cargar_reporte").show("slow");
-                $("#editar_resul").load("./ajax/ver_detalle_producto.php?id="+id+"&producto="+nombre, " ", function () {
+                $("#editar_resul").load("product/"+producto, " ", function () {
+                    
                     $("#editar_resul").show("slow");
                     $("#cargar_reporte").hide("slow");
                 });

@@ -125,7 +125,7 @@
     <!-- Main File-->
     <script src="{{ asset('/assets/js/front.js') }}"></script>
 
-    <script src="{{ asset('/assets/js/charts-home.js') }}"></script>
+   
    	<script>
      function display_msg(mensaje,tipo){
       $(function () {

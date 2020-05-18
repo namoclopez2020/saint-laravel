@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Categorie;
 use App\Warehouse;
 use App\Provider;
+use App\Batch;
 
 class Product extends Model
 {
@@ -18,7 +19,11 @@ class Product extends Model
     public function warehouse (){
         return $this->belongsTo(Warehouse::class);
     }
-    public function provider (){
+    public function provider(){
         return $this->belongsToMany(Provider::class);
+    }
+
+    public function batches(){
+        return $this->hasMany(Batch::class);
     }
 }
