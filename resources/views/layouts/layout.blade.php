@@ -12,17 +12,17 @@
     <meta name="robots" content="all,follow">
     
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href=" {{asset('/assets/vendor/bootstrap/css/bootstrap.min.css')}} ">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/font-awesome/css/font-awesome.min.css') }} ">
     <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="/assets/css/fontastic.css">
+    <link rel="stylesheet" href=" {{asset('/assets/css/fontastic.css')}} ">
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- Bootstrap Select CSS-->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-select/css/bootstrap-select.min.css')}}">
     <!-- Bootstrap Touchspin CSS-->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+    <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
     <!-- Bootstrap Datepicker CSS-->
     <link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css">
     <!-- Bootstrap Tags input CSS-->
