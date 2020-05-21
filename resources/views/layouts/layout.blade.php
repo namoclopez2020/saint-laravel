@@ -24,11 +24,11 @@
     <!-- Bootstrap Touchspin CSS-->
     <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
     <!-- Bootstrap Datepicker CSS-->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css">
+    <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css')}}">
     <!-- Bootstrap Tags input CSS-->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
     <!-- No UI Slider-->
-    <link rel="stylesheet" href="/assets/vendor/nouislider/nouislider.css">
+    <link rel="stylesheet" href="{{asset('/assets/vendor/nouislider/nouislider.css')}}">
  
     <!-- DataTables CSS
     <link rel="stylesheet" href="/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">

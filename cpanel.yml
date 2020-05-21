@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/jul09mrd/public_html/saint-laravel/
+    - /bin/cp -R * $DEPLOYPATH
