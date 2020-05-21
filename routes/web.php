@@ -41,4 +41,6 @@ Route::get('/product/impuesto/{impuesto}','ProductController@impuesto');
 
 Route::resource('product', 'ProductController');
 
+Route::resource('buy', 'BuyController');
 
+Route::get('/buy/provider/{query}','BuyController@proveedor');
