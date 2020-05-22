@@ -13,13 +13,14 @@
          <div class="card">
              <div class="card-header"><i class="fa fa-edit">Nueva Compra</i></div>
              <div class="card-body">
-             <form id="datos_compra" method="POST">
+             <form id="datos_compra" method="POST" >
                @csrf
                <div class="form-row">
                <div class="form-group col-md-4 form-group-typeahead">
+                 
                  <label for="inputCity">Proveedor</label>
                  <input type="text" class="form-control input-sm" id="nombre_proveedor" placeholder="Selecciona un proveedor" >
-                         <input id="id_proveedor" type='hidden'>
+                         <input id="id_proveedor" name="id_proveedor" type='hidden'>
                  
                 
                </div>
@@ -42,7 +43,7 @@
                <div class="form-group col-md-2">
                <label class="form-control-label">Pago</label>
                                
-                                   <select class='form-control input-sm' id="condiciones">
+                                   <select class='form-control input-sm' id="condiciones" name="condiciones">
                                        <option value="1">Efectivo</option>
                                        <option value="2">Cheque</option>
                                        <option value="3">Transferencia bancaria</option>
@@ -53,9 +54,9 @@
                <div class="form-group col-md-2">
                <label for="email" class="form-control-label">Tipo de pago</label>
                                
-                                   <select class='form-control input-sm' id="tipo_pago" onchange="load()">
+                                   <select class='form-control input-sm' id="tipo_pago" name="tipo_pago" onchange="load()">
                                        <option value="1">Total</option>
-                                       <option value="2">Parcial</option>
+                                       <option value="0">Parcial</option>
                                        
                                    </select>
                                

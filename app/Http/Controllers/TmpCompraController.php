@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 
 class TmpCompraController extends Controller
 {   
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +86,7 @@ class TmpCompraController extends Controller
         //
     }
     public function pago(Request $request){
-        if($request['pago'] == '2'){
+        if($request['pago'] == '0'){
             return view('buy.ajax.pago');
         }
     }

@@ -88,7 +88,7 @@
 		 // var id_vendedor = $("#id_vendedor").val();
 		  var condiciones = $("#condiciones").val();
 		  var tipo_pago = $('#tipo_pago').val();
-		  if(tipo_pago == "2"){
+		  if(tipo_pago == "0"){
 			  var pagado=$('#pagado').val();
 			if(pagado==""){
 
@@ -143,6 +143,7 @@
 					//$("#resultados").html("Mensaje: Cargando...");
 				  },
 				success: function(datos){
+				
 					console.log(datos);
 				//$("#resultados").html(datos);
 				//VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
