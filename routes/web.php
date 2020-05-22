@@ -50,3 +50,4 @@ Route::resource('TmpCompra', 'TmpCompraController');
 Route::get('/TmpCompra/pago/{pago}','TmpCompraController@pago');
 
 Route::get('/TmpCompra/delete/{tmp_compra}','TmpCompraController@borrar');
+

@@ -13,7 +13,8 @@
          <div class="card">
              <div class="card-header"><i class="fa fa-edit">Nueva Compra</i></div>
              <div class="card-body">
-             <form id="datos_compra" method="POST" >
+             <form id="datos_compra" method="POST">
+               @csrf
                <div class="form-row">
                <div class="form-group col-md-4 form-group-typeahead">
                  <label for="inputCity">Proveedor</label>

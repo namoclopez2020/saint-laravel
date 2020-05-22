@@ -6,7 +6,8 @@ use App\tmp_compra;
 use Illuminate\Http\Request;
 
 class TmpCompraController extends Controller
-{
+{   
+    
     /**
      * Display a listing of the resource.
      *

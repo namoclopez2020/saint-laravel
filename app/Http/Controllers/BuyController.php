@@ -37,8 +37,16 @@ class BuyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request->validate([
+            'fecha' => 'required',
+            'provider_id' => 'required',
+            'condiciones'=> 'required',
+            'tipo_pago' => 'required',
+            'actualizar' => 'required'
+        ]);
+        Buy::create([]);
+        //return json_encode($request->all());
     }
 
     /**

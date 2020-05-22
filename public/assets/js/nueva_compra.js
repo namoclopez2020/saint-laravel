@@ -83,6 +83,7 @@
 		$("#datos_compra").submit(function(event){
 			event.preventDefault();
 			var opcion = false;
+			var token = $("[name='_token']").attr("value");
 		  var id_proveedor = $("#id_proveedor").val();
 		 // var id_vendedor = $("#id_vendedor").val();
 		  var condiciones = $("#condiciones").val();
@@ -134,7 +135,21 @@
 			if (result.value) {
 			   opcion = true;
 				
-				VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
+			   $.ajax({
+				type: "POST",
+				url: "/buy",
+				data:"fecha="+fecha+"&_token="+token+"&provider_id="+id_proveedor+"&condiciones="+condiciones+"&tipo_pago="+tipo_pago+"&pagado="+pagado+"&actualizar="+opcion,
+				 beforeSend: function(objeto){
+					//$("#resultados").html("Mensaje: Cargando...");
+				  },
+				success: function(datos){
+					console.log(datos);
+				//$("#resultados").html(datos);
+				//VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
+				}
+					});
+			   
+				
 			} else if (
 			  /* Read more about handling dismissals below */
 			  result.dismiss === Swal.DismissReason.cancel
