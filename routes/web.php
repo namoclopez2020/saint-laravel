@@ -44,3 +44,9 @@ Route::resource('product', 'ProductController');
 Route::resource('buy', 'BuyController');
 
 Route::get('/buy/provider/{query}','BuyController@proveedor');
+
+Route::resource('TmpCompra', 'TmpCompraController');
+
+Route::get('/TmpCompra/pago/{pago}','TmpCompraController@pago');
+
+Route::get('/TmpCompra/delete/{tmp_compra}','TmpCompraController@borrar');

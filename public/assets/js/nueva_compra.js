@@ -1,91 +1,62 @@
-
-		
+	$(document).ready(
+		cargar()
+	);
+	function cargar (){
+		$.ajax({
+			type: "GET",
+			url: "/TmpCompra",
+			 beforeSend: function(objeto){
+				$("#resultados").html('<img src="./public/vendor/lightbox2/images/loading.gif"/>');
+			  },
+			success: function(datos){
+			$("#resultados").html(datos);
+			}
+				});
+	}
 	function agregar (id)
 	{
 		var costo_prod=document.getElementById('costo_prod_'+id).value;
 		var cantidad_und=document.getElementById('cantidad_und_'+id).value;
-		
+		var token = $("[name='_token']").attr("value");
 		//Inicia validacion
 		if(document.getElementById('cantidad_paq_'+id)){
 			var cantidad_paq = document.getElementById('cantidad_paq_'+id).value;
 			if(cantidad_paq == '' && cantidad_und == ''  || (cantidad_und <= 0 && cantidad_paq <= 0) || (cantidad_paq < 0 || cantidad_und <0)){
-				$(function () {
-
-					Messenger.options = {
-						extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-						theme: 'flat',
-						messageDefaults: {
-							showCloseButton: true
-						}
-					}
-					Messenger().post({
-						message: 'Ingrese una cantidad válida',
-						type: 'error'
-					});
-					
-					
-					});
+				display_msg('Ingrese una cantidad válida','error');
+				
 				document.getElementById('cantidad_paq_'+id).focus();
 
 			}
 		}
 		else{
 			if(cantidad_und == '' || cantidad_und <= 0){
-				$(function () {
-
-					Messenger.options = {
-						extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-						theme: 'flat',
-						messageDefaults: {
-							showCloseButton: true
-						}
-					}
-					Messenger().post({
-						message: 'Ingrese una cantidad de unidades válida',
-						type: 'error'
-					});
-					
-					
-					});
+				display_msg('Ingrese una cantidad de unidades válida','error');
+				
 				document.getElementById('cantidad_und'+id).focus();
 			}
 			var cantidad_paq = "";
 		}
 		
 		//prueba
-		console.log(cantidad_paq)
+		//console.log(cantidad_paq)
 		
 		if (costo_prod == "")
-		{
-			$(function () {
-
-				Messenger.options = {
-					extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-					theme: 'flat',
-					messageDefaults: {
-						showCloseButton: true
-					}
-				}
-				Messenger().post({
-					message: 'El campo de costo esta vacío',
-					type: 'error'
-				});
-				
-				
-				});
-		document.getElementById('costo_prod_'+id).focus();
+		{	
+			display_msg('El campo de costo es válido','error');
+			document.getElementById('costo_prod_'+id).focus();
 		return false;
 		}
 		//Fin validacion
 		
 		$.ajax({
 	type: "POST",
-	url: "./ajax/agregar_compra.php",
-	data: "id="+id+"&costo_prod="+costo_prod+"&cantidad_und="+cantidad_und+"&cantidad_paq="+cantidad_paq,
+	url: "/TmpCompra",
+	data: "id="+id+"&costo_prod="+costo_prod+"&cantidad_und="+cantidad_und+"&cantidad_paq="+cantidad_paq+"&_token="+token,
 	 beforeSend: function(objeto){
 		$("#resultados").html("Mensaje: Cargando...");
 	  },
 	success: function(datos){
+		
 	$("#resultados").html(datos);
 	}
 		});
@@ -98,8 +69,7 @@
 			
 			$.ajax({
         type: "GET",
-        url: "./ajax/agregar_compra.php",
-        data: "id="+id,
+        url: "/TmpCompra/delete/"+id,
 		 beforeSend: function(objeto){
 			$("#resultados").html("Mensaje: Cargando...");
 		  },
@@ -120,22 +90,8 @@
 		  if(tipo_pago == "2"){
 			  var pagado=$('#pagado').val();
 			if(pagado==""){
-				$(function () {
 
-					Messenger.options = {
-						extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-						theme: 'flat',
-						messageDefaults: {
-							showCloseButton: true
-						}
-					}
-					Messenger().post({
-						message: 'Debes colocar la cantidad pagada',
-						type: 'error'
-					});
-					
-					
-					});
+				display_msg('Debes colocar la cantidad pagada','error');
 					//fin mensaje
 					$("#pagado").focus();
 				return false;
@@ -145,43 +101,15 @@
 		  }
 		  var fecha=$("#fecha").val();
 		  if(fecha==''){
-			$(function () {
-
-				Messenger.options = {
-					extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-					theme: 'flat',
-					messageDefaults: {
-						showCloseButton: true
-					}
-				}
-				Messenger().post({
-					message: 'Selecciona una fecha valida',
-					type: 'error'
-				});
-				
-				
-				});
+			  display_msg('Selecciona una fecha válida','error');
+			
 				$("#fecha").focus();
 				return false;
 		  }
 		  
 		  if (id_proveedor==""){
-			$(function () {
-
-				Messenger.options = {
-					extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-					theme: 'flat',
-					messageDefaults: {
-						showCloseButton: true
-					}
-				}
-				Messenger().post({
-					message: 'Debes seleccionar un proveedor',
-					type: 'error'
-				});
-				
-				
-				});
+			  display_msg('Debes seleccionar un proveedor','error');
+	
 			  $("#nombre_proveedor").focus();
 			 return false;
 		  }

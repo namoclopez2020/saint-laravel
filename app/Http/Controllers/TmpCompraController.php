@@ -13,8 +13,10 @@ class TmpCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $id_usuario = auth()->user()->id;
+        $tmp_compra = tmp_compra::latest()->where('session_id','=',"$id_usuario")->get();
+        return view('buy.ajax.index',compact('tmp_compra'));
     }
 
     /**
@@ -34,8 +36,16 @@ class TmpCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        tmp_compra::create([
+            'product_id' => $request['id'],
+            'cantidad_und' => $request['cantidad_und'],
+            'cantidad_paq' => $request['cantidad_paq'],
+            'costo_compra' => $request['costo_prod'],
+            'session_id' => auth()->user()->id
+        ]);
+        return redirect()->route('TmpCompra.index');
+       
     }
 
     /**
@@ -71,7 +81,11 @@ class TmpCompraController extends Controller
     {
         //
     }
-
+    public function pago(Request $request){
+        if($request['pago'] == '2'){
+            return view('buy.ajax.pago');
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -80,6 +94,10 @@ class TmpCompraController extends Controller
      */
     public function destroy(tmp_compra $tmp_compra)
     {
-        //
+        
+    }
+    public function borrar (tmp_compra $tmp_compra){
+        $tmp_compra->delete();
+        return redirect()->route('TmpCompra.index'); 
     }
 }

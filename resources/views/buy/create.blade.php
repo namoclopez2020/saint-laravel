@@ -141,6 +141,7 @@
                         </td>
                         <td><input type="number" class="form-control form-control-sm col-5" id="costo_prod_{{$itemProduct->id}}"  ></td>
                         <td>
+                          @csrf
                         <a class='btn btn-info'href="#" onclick="agregar('{{$itemProduct->id}}')"><i class="fa fa-plus"></i></a>
                         </td>
                     
@@ -176,6 +177,25 @@
   <script type="text/javascript" src="{{asset('/assets/js/VentanaCentrada.js')}}"></script>
   <script src="{{asset('/assets/js/nueva_compra.js')}}"></script>
   <script>
+    
+    function load(){
+	var tipo_pago=$('#tipo_pago').find(":selected").val();
+  $("#loader2").fadeIn('slow');
+	$.ajax({
+		type:"GET",
+		url:'/TmpCompra/pago/'+tipo_pago,
+		 beforeSend: function(objeto){
+	$("#ajax_pago").html("Mensaje: Cargando...");
+	  },
+		success:function(data){
+			$("#ajax_pago").html(data);
+			
+			
+			
+		}
+	})
+}
+
     $(document).ready(function() {
 
 $('#nombre_proveedor').autocomplete({
