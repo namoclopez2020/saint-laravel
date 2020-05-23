@@ -6,8 +6,12 @@ use App\Buy;
 use App\Product;
 use App\Provider;
 use App\tmp_compra;
+use App\BuyDetail;
 use DB;
 use Illuminate\Http\Request;
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 class BuyController extends Controller
 {   
@@ -22,7 +26,7 @@ class BuyController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -62,7 +66,7 @@ class BuyController extends Controller
             return "nola";
         }
           
-        $id_compra = Buy::create([
+        $compra = Buy::create([
             'provider_id' => $request['provider_id'],
             'costo_total_compra' => $costo_total,
             'pagado' => $request['pagado'],
@@ -70,8 +74,18 @@ class BuyController extends Controller
             'office_id' => $request['office_id'],
             'status_compra' => $request['tipo_pago']
         ]);
+       $tmp = tmp_compra::where('session_id','=',"$id_usuario")->get();
+        foreach($tmp as $item){
 
-        return json_encode($id_compra);
+            BuyDetail::create([
+                'buy_id' => $compra->id,
+                'product_id' => $item['product_id'],
+                'cant_paq' => $item['cantidad_paq'],
+                'cant_und' => $item['cantidad_und'],
+                'costo' => $item['costo_compra']
+            ]);
+        }
+        return $compra->id;
         //return json_encode($request->all());
     }
 
@@ -82,8 +96,25 @@ class BuyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Buy $buy)
-    {
-        //
+    {   
+        
+        try {
+            ob_start();
+           
+            $content = ob_get_clean();
+        
+            $html2pdf = new Html2Pdf('P', 'A4', 'fr');
+            $html2pdf->setDefaultFont('Arial');
+            $html2pdf->writeHTML(view('buy.show',['buy' => $buy]));
+            $html2pdf->output('factura.pdf');
+        } catch (Html2PdfException $e) {
+            $html2pdf->clean();
+        
+            $formatter = new ExceptionFormatter($e);
+            echo $formatter->getHtmlMessage();
+        }
+        
+        
     }
 
     public function proveedor(Request $request){

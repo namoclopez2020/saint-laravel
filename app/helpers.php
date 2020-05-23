@@ -57,3 +57,21 @@ function costos($costo_anterior,$costo_actual,$costo_promedio){
     $string = $costo_anterior."<br>".$costo_actual."<br>".$costo_promedio;
     return $string;
 }
+
+function pago($tipo_pago){
+    switch ($tipo_pago) {
+        case 1:
+            $pago ="Efectivo";
+            break;
+        case 2:
+            $pago ="Cheque";
+            break;
+        case 3:
+            $pago ="Transferencia Bancaria";
+            break;
+        case 4:
+            $pago ="Credito";
+            break;
+    }
+    return $pago;
+}

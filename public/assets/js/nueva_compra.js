@@ -143,10 +143,11 @@
 					//$("#resultados").html("Mensaje: Cargando...");
 				  },
 				success: function(datos){
-				
-					console.log(datos);
-				//$("#resultados").html(datos);
 				//VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
+					console.log(datos);
+					window.open("/buy/"+datos, "_blank");
+				//$("#resultados").html(datos);
+				
 				}
 					});
 			   

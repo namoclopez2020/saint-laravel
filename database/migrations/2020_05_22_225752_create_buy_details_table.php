@@ -16,6 +16,11 @@ class CreateBuyDetailsTable extends Migration
         Schema::create('buy_details', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('buy_id')->constrained('buys')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('cant_paq');
+            $table->string('cant_und');
+            $table->string('costo');
             
         });
     }
