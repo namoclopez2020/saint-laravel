@@ -63,7 +63,7 @@ class BuyController extends Controller
             $costo_total = $sum['costo_total'];
         }
         if($request['pagado'] > $costo_total){
-            return "nola";
+            return false;
         }
           
         $compra = Buy::create([
@@ -77,14 +77,50 @@ class BuyController extends Controller
        $tmp = tmp_compra::where('session_id','=',"$id_usuario")->get();
         foreach($tmp as $item){
 
-            BuyDetail::create([
+            $buy_detail = BuyDetail::create([
                 'buy_id' => $compra->id,
                 'product_id' => $item['product_id'],
                 'cant_paq' => $item['cantidad_paq'],
                 'cant_und' => $item['cantidad_und'],
                 'costo' => $item['costo_compra']
             ]);
+
+          //sumar stock del producto  
+           $stock_final = sumar_stock($item['cantidad_paq'],$item['cantidad_und'],$buy_detail->product->usa_empaque,$buy_detail->product->stock_und,$buy_detail->product->stock_paq,$buy_detail->product->fraccion);
+           list($paq,$und) = explode("/",$stock_final);
+           $product = Product::findOrFail($item['product_id']);
+           $product->stock_paq = $paq;
+           $product->stock_und = $und;
+           
+        
+           //actualizar costos del producto en caso el usuario lo pida
+           if($request['actualizar'] == "true"){
+              
+            $costos = actualizar_costos($product->costo_actual,
+                                    $product->costo_promedio,
+                                    $buy_detail->costo,
+                                    $product->usa_empaque,
+                                    $buy_detail->cant_und,
+                                    $buy_detail->cant_paq,
+                                    $product->fraccion);
+            list($costo_anterior,$costo_actual,$costo_promedio) = explode("/",$costos);
+            
+            $product->costo_anterior = $costo_anterior;
+            $product->costo_actual = $costo_actual;
+            $product->costo_promedio = $costo_promedio;
+           }    
+
+           $product->save();
+           
+           
+
         }
+        tmp_compra::where('session_id','=',"$id_usuario")->delete();
+
+        
+
+        
+
         return $compra->id;
         //return json_encode($request->all());
     }

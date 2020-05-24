@@ -143,7 +143,10 @@
 					//$("#resultados").html("Mensaje: Cargando...");
 				  },
 				success: function(datos){
-				//VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
+					if(datos == false){
+						display_msg('La cantidad pagada excede a la de la compra','error');
+						return false;
+					}
 					console.log(datos);
 					window.open("/buy/"+datos, "_blank");
 				//$("#resultados").html(datos);
@@ -156,8 +159,26 @@
 			  /* Read more about handling dismissals below */
 			  result.dismiss === Swal.DismissReason.cancel
 			) {
-				
-				VentanaCentrada('./libs/pdf/examples/comprobante_compra.php?fecha='+fecha+'&prov='+id_proveedor+'&condiciones='+condiciones+'&tipo_pago='+tipo_pago+'&pagado='+pagado+'&actualizar='+opcion,'Factura','','800','600','true');
+				opcion = false;
+
+				$.ajax({
+					type: "POST",
+					url: "/buy",
+					data:"fecha="+fecha+"&_token="+token+"&provider_id="+id_proveedor+"&condiciones="+condiciones+"&tipo_pago="+tipo_pago+"&pagado="+pagado+"&actualizar="+opcion,
+					 beforeSend: function(objeto){
+						//$("#resultados").html("Mensaje: Cargando...");
+					  },
+					success: function(datos){
+						if(datos == false){
+							display_msg('La cantidad pagada excede a la de la compra','error');
+							return false;
+						}
+						console.log(datos);
+						window.open("/buy/"+datos, "_blank");
+					//$("#resultados").html(datos);
+					
+					}
+						});
 			}
 		  })
 		  

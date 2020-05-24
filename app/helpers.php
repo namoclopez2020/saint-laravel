@@ -75,3 +75,36 @@ function pago($tipo_pago){
     }
     return $pago;
 }
+
+function sumar_stock($cantidad_paq,$cantidad_und,$usa_empaque,$stock_und,$stock_paq,$unidades_por_caja){
+	
+  if($usa_empaque):
+
+    $total_und_BD = ($stock_paq*$unidades_por_caja)+$stock_und;
+    $total_und_funcion = ($cantidad_paq*$unidades_por_caja)+$cantidad_und;
+    
+    $numerico=$total_und_BD+$total_und_funcion;
+    $paq=(int)($numerico/$unidades_por_caja);
+    $und=$numerico%$unidades_por_caja;
+  else:
+    $paq=0;
+    $und=$stock_und+$cantidad_und;
+  endif;
+
+  return $paq."/".$und;
+  
+}
+function actualizar_costos($costo_actual,$costo_promedio,$costo_compra,$usa_empaque,$cantidad_und,$cantidad_paq,$fraccion){
+    	$costo_anterior = $costo_actual;
+		if($usa_empaque){
+		 $unidades_totales = $cantidad_und+($cantidad_paq)*$fraccion;
+		 $costo_actual=(double)$costo_compra/(double)$unidades_totales;
+		 
+		}
+		else{
+		$costo_actual = (double)$costo_compra/(double)$cantidad_und;
+		}
+		$costo_promedio =((double)$costo_anterior+(double)$costo_actual)/2;
+		
+	return $costo_anterior."/".$costo_actual."/".$costo_promedio;
+}
