@@ -7,6 +7,7 @@ use App\Product;
 use App\Provider;
 use App\tmp_compra;
 use App\BuyDetail;
+use App\Batch;
 use DB;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -26,7 +27,16 @@ class BuyController extends Controller
      */
     public function index()
     {
+        $buy = Buy::latest()->get();
+        return view ('buy.index',compact('buy'));
        
+    }
+
+    public function detalle(Buy $buy){
+        
+        return view('buy.ajax.detalle',[
+            'buy' => $buy
+        ]);
     }
 
     /**
@@ -54,6 +64,7 @@ class BuyController extends Controller
         'tipo_pago' => 'required',
         'actualizar' => 'required'
         ]);
+        
         $request['office_id'] = "1";
            //return $request->all();
         //capturar el costo total de la compra
@@ -65,7 +76,9 @@ class BuyController extends Controller
         if($request['pagado'] > $costo_total){
             return false;
         }
-          
+        if($request['tipo_pago']){
+            $request['pagado'] = $costo_total;
+        }
         $compra = Buy::create([
             'provider_id' => $request['provider_id'],
             'costo_total_compra' => $costo_total,
@@ -84,6 +97,21 @@ class BuyController extends Controller
                 'cant_und' => $item['cantidad_und'],
                 'costo' => $item['costo_compra']
             ]);
+            if($buy_detail->product->es_serial){
+                $estado = false;
+            }else{
+                $estado = true;
+            }
+
+            $batch = Batch::create([
+                'buy_id' => $compra->id,
+                'product_id' => $item['product_id'],
+                'paq' => $item['cantidad_paq'],
+                'und' => $item['cantidad_und'],
+                'provider_id' => $request['provider_id'],
+                'estado' => $estado
+            ]);
+           
 
           //sumar stock del producto  
            $stock_final = sumar_stock($item['cantidad_paq'],$item['cantidad_und'],$buy_detail->product->usa_empaque,$buy_detail->product->stock_und,$buy_detail->product->stock_paq,$buy_detail->product->fraccion);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\tmp_compra;
 use Illuminate\Http\Request;
+use DB;
 
 class TmpCompraController extends Controller
 {   
@@ -20,7 +21,11 @@ class TmpCompraController extends Controller
     {   
         $id_usuario = auth()->user()->id;
         $tmp_compra = tmp_compra::latest()->where('session_id','=',"$id_usuario")->get();
-        return view('buy.ajax.index',compact('tmp_compra'));
+        $suma = tmp_compra::where('session_id','=',"$id_usuario")->select(DB::raw('SUM(costo_compra) as costo_total'))->get();
+        foreach($suma as $sum){
+            $costo_total = $sum['costo_total'];
+        }
+        return view('buy.ajax.index',compact('tmp_compra','costo_total'));
     }
 
     /**

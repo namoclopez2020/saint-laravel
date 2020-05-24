@@ -108,3 +108,26 @@ function actualizar_costos($costo_actual,$costo_promedio,$costo_compra,$usa_empa
 		
 	return $costo_anterior."/".$costo_actual."/".$costo_promedio;
 }
+
+function cantidad ($medida_paq,$medida_und,$paq,$und){
+    $string = "";
+    if($paq == 0){
+        $string = $und." ".$medida_und;
+    }
+    else{
+        $string = $paq." ".$medida_paq." / ".$und." ".$medida_und;
+    }
+    return $string;
+}
+
+function status_compra ($status){
+    switch ($status) {
+        case true:
+              $string = "<span class='badge badge-pill badge-success'>Pagado</span>";
+           break;
+        case false:
+            $string = "<span class='badge badge-pill badge-warning'>Parcial</span>";
+        break;
+    }
+    return $string;
+}

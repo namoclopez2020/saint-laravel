@@ -18,7 +18,7 @@ class CreateTmpComprasTable extends Migration
             $table->timestamps();
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('cantidad_und');
-            $table->string('cantidad_paq')->nullable();
+            $table->string('cantidad_paq')->default('0');
             $table->string('costo_compra');
             $table->integer('session_id');
         });

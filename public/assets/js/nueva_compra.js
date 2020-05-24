@@ -34,7 +34,7 @@
 				
 				document.getElementById('cantidad_und'+id).focus();
 			}
-			var cantidad_paq = "";
+			var cantidad_paq = 0;
 		}
 		
 		//prueba

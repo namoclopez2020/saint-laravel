@@ -11,7 +11,7 @@
     @forelse ($tmp_compra as $itemTmp)
     <tr>
         <td class='text-center'> {{$itemTmp->product->codigo}} </td>
-        <td class='text-center'> {{$itemTmp->cantidad_paq}} {{$itemTmp->cantidad_und}} </td>
+        <td class='text-center'> {{cantidad($itemTmp->product->medida_paq,$itemTmp->product->medida_und,$itemTmp->cantidad_paq,$itemTmp->cantidad_und)}} </td>
         <td> {{$itemTmp->product->nombre}} </td>
         <td class='text-right'> {{$itemTmp->costo_compra}} </td>
         
@@ -28,13 +28,13 @@
         <td></td>
     </tr>
     <tr>	
-        <td class='text-right' colspan=4></td>
+        <td class='text-right' colspan=4>IGV </td>
         <td class='text-right'></td>
         <td></td>
     </tr>
     <tr>
         <td class='text-right' colspan=4>TOTAL </td>
-        <td class='text-right'></td>
+        <td class='text-right'> {{$costo_total}} </td>
         <td></td>
     </tr>
     
