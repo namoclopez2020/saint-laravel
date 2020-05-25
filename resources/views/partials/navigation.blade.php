@@ -72,7 +72,7 @@
             <ul id="componentsDropdown" class="collapse list-unstyled ">
               <li><a href=" {{route('buy.create')}} ">Nueva compra</a></li>
               <li><a href=" {{route('buy.index')}} ">Registro de Compras</a></li>
-              <li><a href="cuentas_por_pagar.php">Cuentas por pagar</a></li>
+              <li><a href=" {{route('buy.cuentas')}} ">Cuentas por pagar</a></li>
             </ul>
           </li>
           <li><a href="#ventasDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cart-plus"></i>Ventas </a>

@@ -42,7 +42,7 @@
                             <td>
                             <div class="btn-group">
                             <a class="btn btn-info mr-1" href="#" data-toggle="modal" data-target="#myModalcompras" onclick="mostrar('{{$itemBuy->id}}')">Detalles</a>
-                            <a href="" class="btn btn-secondary"><span class="fa fa-print"> PDF</span></a>
+                            <a href="#" onclick="detalles('{{$itemBuy->id}}')" class="btn btn-secondary"><span class="fa fa-print"> PDF</span></a>
                             </div>
                             </td>
                             </tr>  
@@ -72,6 +72,9 @@
                     $("#cargar_reporte").hide("slow");
                 });
             });
+        }
+        function detalles(id){
+            window.open("/buy/"+id, "_blank");
         }
     </script>
 

@@ -8,6 +8,7 @@ use App\Provider;
 use App\tmp_compra;
 use App\BuyDetail;
 use App\Batch;
+use App\Payment;
 use DB;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -87,6 +88,16 @@ class BuyController extends Controller
             'office_id' => $request['office_id'],
             'status_compra' => $request['tipo_pago']
         ]);
+
+        //insertar datos en la tabla de pagos
+        Payment::create([
+            'buy_id' => $compra->id,
+            'monto_pagado' => $request['pagado'],
+            'user_id' => $id_usuario,
+            'office_id' => $request['office_id'],
+            'metodo_pago' => $request['condiciones']
+        ]);
+
        $tmp = tmp_compra::where('session_id','=',"$id_usuario")->get();
         foreach($tmp as $item){
 
@@ -203,6 +214,18 @@ class BuyController extends Controller
      * @param  \App\Buy  $buy
      * @return \Illuminate\Http\Response
      */
+    public function cuentasPorPagar(){
+        $compras = Buy::where('status_compra','=','0')->get();
+        return view('payment.index',compact('compras'));
+    }
+
+    public function pagar(Buy $buy){
+       
+        return view('payment.ajax.index',[
+            'buy' => $buy
+        ]);
+    }
+
     public function edit(Buy $buy)
     {
         //
@@ -216,8 +239,26 @@ class BuyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Buy $buy)
-    {
-        //
+    {   
+        $user_id = auth()->user()->id;
+        $request->validate([
+            'maximo' => 'required',
+            'pago' => 'required',
+            'medio_pago' => 'required'
+        ]);
+        $request['office_id'] = 1;
+        $buy->pagado += $request['pago'];
+        $buy->save();
+        
+        payment::create([
+            'buy_id' => $buy->id,
+            'monto_pagado' => $request['pago'],
+            'user_id' => $user_id,
+            'office_id' => $request['office_id'],
+            'metodo_pago' => $request['medio_pago'],
+        ]);
+
+        return true;
     }
 
     /**

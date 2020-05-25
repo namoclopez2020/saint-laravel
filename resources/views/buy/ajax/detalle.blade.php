@@ -56,15 +56,19 @@
                        
                     </thead>
                     <tbody>
-                   
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
-                   
+                    @forelse ($buy->payments as $itemPayment)
+                        <tr>
+                            <td> {{$itemPayment->id}} </td>
+                            <td> {{$itemPayment->monto_pagado}} </td>
+                            <td> {{$itemPayment->created_at->format('d-m-Y G:i:s')}} </td>
+                            <td> {{$itemPayment->user->name}} </td>
+                            <td> {{pago($itemPayment->metodo_pago)}} </td>
+                        </tr>
+                        
+                    @empty
+                        
+                    @endforelse
+                    
                     </tbody>
                 </table>
             </div>
