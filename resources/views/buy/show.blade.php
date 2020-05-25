@@ -54,7 +54,7 @@
             <tr>
     
                 <td style="width: 25%; color: #444444;">
-                    <img style="width: 50px;" src="{{asset('assets/img/logo_login.png')}}" alt="Logo"><br>
+                    <img style="width: 50px;" src="{{asset('/assets/img/logo_login.png')}}" alt="Logo"><br>
                     
                 </td>
                 <td style="width: 50%; color: #34495e;font-size:12px;text-align:center">
