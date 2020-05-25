@@ -246,17 +246,25 @@ class BuyController extends Controller
             'pago' => 'required',
             'medio_pago' => 'required'
         ]);
+        if($request['pago'] > $request['maximo']){
+            return false;
+        }
         $request['office_id'] = 1;
         $buy->pagado += $request['pago'];
+        if($buy->pagado == $buy->costo_total_compra){
+        $buy->status_compra = true;
+        }
         $buy->save();
         
-        payment::create([
+        $payment = payment::create([
             'buy_id' => $buy->id,
             'monto_pagado' => $request['pago'],
             'user_id' => $user_id,
             'office_id' => $request['office_id'],
             'metodo_pago' => $request['medio_pago'],
         ]);
+        
+        
 
         return true;
     }

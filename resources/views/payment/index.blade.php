@@ -83,7 +83,7 @@
             return false;
         }
         if(monto > maximo){
-            display_msg('Cantidad excede el monto máximo');
+            display_msg('Cantidad excede el monto máximo','error');
             return false;
         } 
         var parametros = $("#form_pago").serialize();
