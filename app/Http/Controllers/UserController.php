@@ -10,9 +10,10 @@ use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller
 {   
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
+        $this->middleware('statusUser');
+        $this->middleware('roles');
     }
     /**
      * Display a listing of the resource.

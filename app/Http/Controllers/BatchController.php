@@ -6,7 +6,14 @@ use App\Batch;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
-{
+{   
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('statusUser');
+        $this->middleware('roles');
+        
+        
+    }
     /**
      * Display a listing of the resource.
      *

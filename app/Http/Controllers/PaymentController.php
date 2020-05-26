@@ -6,7 +6,12 @@ use App\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
-{
+{   
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('statusUser');
+        $this->middleware('roles');
+    }
     /**
      * Display a listing of the resource.
      *

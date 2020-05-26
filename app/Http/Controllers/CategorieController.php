@@ -8,9 +8,10 @@ use App\Http\Requests\CategorieSaveRequest;
 
 class CategorieController extends Controller
 {   
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
+        $this->middleware('statusUser');
+        $this->middleware('roles');
     }
     /**
      * Display a listing of the resource.
