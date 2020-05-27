@@ -15,6 +15,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('statusUser');
+        $this->middleware('CheckGeneralData');
         $this->middleware('officeIsSelected');
         
         

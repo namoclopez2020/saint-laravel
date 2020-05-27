@@ -12,6 +12,7 @@ class TmpCompraController extends Controller
         $this->middleware('auth');
         $this->middleware('statusUser');
         $this->middleware('roles');
+        $this->middleware('CheckGeneralData');
         $this->middleware('officeIsSelected');
     }
     /**
