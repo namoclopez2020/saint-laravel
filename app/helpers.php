@@ -135,3 +135,12 @@ function status_compra ($status){
 function resta($n1,$n2){
     return $n1-$n2;
 }
+
+function level_rol($rol){
+    if($rol == 1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

@@ -15,6 +15,8 @@
         <h5 class="sidenav-heading">Principal</h5>
         <ul id="side-main-menu" class="side-menu list-unstyled">                  
         <li><a href="{{ route('home')}}"> <i class="icon-home"></i>Home                             </a></li>
+          
+          @if (level_rol(auth()->user()->role))
           <li><a href="#formsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>Almacenes</a>
             <ul id="formsDropdown" class="collapse list-unstyled ">
               <li><a href="{{ route('warehouse.create') }}">Crear almacen</a></li>
@@ -74,7 +76,9 @@
               <li><a href=" {{route('buy.index')}} ">Registro de Compras</a></li>
               <li><a href=" {{route('buy.cuentas')}} ">Cuentas por pagar</a></li>
             </ul>
-          </li>
+          </li> 
+          @endif
+          
           <li><a href="#ventasDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cart-plus"></i>Ventas </a>
             <ul id="ventasDropdown" class="collapse list-unstyled ">
               <li><a href="nueva_venta.php">Nueva venta</a></li>
@@ -90,7 +94,7 @@
       <div class="admin-menu">
         <h5 class="sidenav-heading">Configuración</h5>
         <ul id="side-admin-menu" class="side-menu list-unstyled"> 
-          <li> <a href="seleccionar_sucursal.php"> <i class="icon-screen"> </i>Cambiar Sucursal</a></li>
+          <li> <a href="{{ route('select.index') }}"> <i class="icon-screen"> </i>Cambiar Sucursal</a></li>
           <li> <a href="general.php"> <i class="icon-screen"> </i>Datos Generales</a></li>
          
         <!--  <li> <a href="#"> <i class="icon-flask"> </i>Demo

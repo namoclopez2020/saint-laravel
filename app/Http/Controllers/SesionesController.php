@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Office;
 use Illuminate\Http\Request;
-use App\Http\Requests\SaveOfficeRequest;
+use App\Office;
 
-class OfficeController extends Controller
+class SesionesController extends Controller
 {   
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('statusUser');
         $this->middleware('roles');
-        
+
     }
     /**
      * Display a listing of the resource.
@@ -20,9 +19,10 @@ class OfficeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
+        //
         $office = Office::latest()->get();
-        return view('office.index',compact('office'));
+        return view('select.office',compact('office'));
     }
 
     /**
@@ -32,7 +32,7 @@ class OfficeController extends Controller
      */
     public function create()
     {
-        return view ('office.create');
+        //
     }
 
     /**
@@ -41,21 +41,22 @@ class OfficeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveOfficeRequest $request)
+    public function store(Request $request)
     {
-        Office::create($request->validated());
-
-        return redirect()->route('office.index')
-        ->with('status','La sucursal fue agregada con éxito');
+       
+       $office_id = $request['office'];
+       $office =  Office::findOrFail($office_id);
+       session(['office' => $office ]);
+       return redirect()->route('home')->with('status','Bienvenido a sistema de inventario');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Office  $office
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Office $office)
+    public function show($id)
     {
         //
     }
@@ -63,40 +64,34 @@ class OfficeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Office  $office
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Office $office)
+    public function edit($id)
     {
-        return view ('office.edit',[
-            'office' => $office
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Office  $office
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveOfficeRequest $request, Office $office)
-    {   
-        $office->update($request->validated());
-
-        return redirect()->route('office.index')->with('status','La sucursal fue actualizada correctamente');
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Office  $office
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Office $office)
+    public function destroy($id)
     {
-        $office->delete();
-        return redirect()->route('office.index')
-        ->with('status','La sucursal fue eliminada con éxito');
+        //
     }
 }

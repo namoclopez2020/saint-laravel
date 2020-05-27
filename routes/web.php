@@ -59,3 +59,6 @@ Route::resource('payment', 'PaymentController');
 Route::get('buy/cuentas/pagar','BuyController@cuentasPorPagar')->name('buy.cuentas');
 
 Route::get('buy/pagar/{buy}','BuyController@pagar');
+
+//rutas para configuraciones generales con variables de sesion
+Route::resource('/select','sesionesController');

@@ -15,6 +15,8 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('statusUser');
+        $this->middleware('officeIsSelected');
+        
         
     }
 
@@ -24,7 +26,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+       
         return view('home');
     }
 }

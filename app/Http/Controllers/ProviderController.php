@@ -12,6 +12,7 @@ class ProviderController extends Controller
         $this->middleware('auth');
         $this->middleware('statusUser');
         $this->middleware('roles');
+        $this->middleware('officeIsSelected');
     }
     /**
      * Display a listing of the resource.

@@ -12,7 +12,7 @@
           <div class="wrapper count-title d-flex">
             <div class="icon"><i class="icon-user"></i></div>
             <div class="name"><strong class="text-uppercase"><?php ?></strong><span>Last 7 days</span>
-              <div class="count-number">25</div>
+              <div class="count-number">25  {{session('idCarrito')}} </div>
             </div>
           </div>
         </div>
