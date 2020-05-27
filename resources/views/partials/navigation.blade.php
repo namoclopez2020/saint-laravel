@@ -95,7 +95,10 @@
         <h5 class="sidenav-heading">Configuración</h5>
         <ul id="side-admin-menu" class="side-menu list-unstyled"> 
           <li> <a href="{{ route('select.index') }}"> <i class="icon-screen"> </i>Cambiar Sucursal</a></li>
-          <li> <a href="general.php"> <i class="icon-screen"> </i>Datos Generales</a></li>
+          @if (level_rol(auth()->user()->role))
+          <li> <a href="{{route('general.index')}}"> <i class="icon-screen"> </i>Datos Generales</a></li>  
+          @endif
+         
          
         <!--  <li> <a href="#"> <i class="icon-flask"> </i>Demo
               <div class="badge badge-info">Special</div></a></li>

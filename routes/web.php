@@ -62,3 +62,5 @@ Route::get('buy/pagar/{buy}','BuyController@pagar');
 
 //rutas para configuraciones generales con variables de sesion
 Route::resource('/select','SesionesController');
+
+Route::resource('general', 'GeneralController');
