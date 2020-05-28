@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     
+
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href=" {{asset('/assets/vendor/bootstrap/css/bootstrap.min.css')}} ">
     <!-- Font Awesome CSS-->

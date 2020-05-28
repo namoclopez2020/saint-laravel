@@ -32,63 +32,84 @@
   
 });
 
-*/
-		$(document).ready(function (){
-            var dataTable = $('#myTable').DataTable({
-               "language": {
-                  "sProcessing":     "Procesando...",
-               "sLengthMenu":     "Mostrar _MENU_ registros",
-               "sZeroRecords":    "No se encontraron resultados",
-               "sEmptyTable":     "Ningún dato disponible en esta tabla",
-               "sInfo":           "registros del _START_ al _END_ de un total de _TOTAL_ registros",
-               "sInfoEmpty":      "registros del 0 al 0 de un total de 0 registros",
-               "sInfoFiltered":   "(total de _MAX_ registros)",
-               "sInfoPostFix":    "",
-               "sSearch":         "Buscar:",
-               "sUrl":            "",
-               "sInfoThousands":  ",",
-               "sLoadingRecords": "Cargando...",
-               "oPaginate": {
-                  "sFirst":    "Primero",
-                  "sLast":     "Último",
-                  "sNext":     "Siguiente",
-                  "sPrevious": "Anterior"
-               },
-               "oAria": {
-                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-               }
-              },
-                'responsive': true
-            }
+*/   
+   function almacen (){
+         var dataTable = $('#almacen').DataTable({
+            "language": {
+               url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+               
+            },
+            'responsive': true,
+            "ajax" : "/almacenes",
+            "serverSide" : true,
+            "processing" : true,
+            "columns":[
+               {data: "id"},
+               {data: "nombre"},
+               {data: "codigo"},
+               {render: function(data,type,row){
+                  return row['office']['nombre']
+               }},
+               {render: function(data,type,row){
+                  $botones = "<div class='btn-group'>";
+                  $botones +="<a href='/warehouse/"+row['id']+"/edit'  class='btn  btn-warning mr-1'  >";
+                  $botones +="<i class='fa fa-edit'></i></a>";
+                  $botones +="<button onclick='elim("+row['id']+")' class='btn  btn-danger'> <span class='fa fa-trash'></span></button>";
+                  $botones +="</div>";
+                  
+                  return $botones;
+               }}
+            ]
+         })
+   };
+
+   function sucursal (){
+      var dataTable = $('#sucursal').DataTable({
+         "language": {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             
-            );
+         },
+         'responsive': true,
+         "ajax" : "/almacenes",
+         "serverSide" : true,
+         "processing" : true,
+         "columns":[
+            {data: "id"},
+            {data: "nombre"},
+            {data: "codigo"},
+            {render: function(data,type,row){
+               return row['office']['nombre']
+            }},
+            {render: function(data,type,row){
+               $botones = "<div class='btn-group'>";
+               $botones +="<a href='/warehouse/"+row['id']+"/edit'  class='btn  btn-warning mr-1'  >";
+               $botones +="<i class='fa fa-edit'></i></a>";
+               $botones +="<button onclick='elim("+row['id']+")' class='btn  btn-danger'> <span class='fa fa-trash'></span></button>";
+               $botones +="</div>";
+               
+               return $botones;
+            }}
+         ]
+      })
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
    var table = $('#producto_compra_venta').DataTable({
       "language": {
-         "sProcessing":     "Procesando...",
-      "sLengthMenu":     "Mostrar _MENU_ registros",
-      "sZeroRecords":    "No se encontraron resultados",
-      "sEmptyTable":     "Ningún dato disponible en esta tabla",
-      "sInfo":           "registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty":      "registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered":   "(total de _MAX_ registros)",
-      "sInfoPostFix":    "",
-      "sSearch":         "Buscar:",
-      "sUrl":            "",
-      "sInfoThousands":  ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-         "sFirst":    "Primero",
-         "sLast":     "Último",
-         "sNext":     "Siguiente",
-         "sPrevious": "Anterior"
+         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+         
       },
-      "oAria": {
-         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
-     },
       'columnDefs': [
          {
             'targets': [6,7],
@@ -138,5 +159,5 @@
           $('input', cell).removeProp('checked');
        }
    });
-});
+
    

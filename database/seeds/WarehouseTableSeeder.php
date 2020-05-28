@@ -11,11 +11,14 @@ class WarehouseTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        Warehouse::create([
-            'codigo' => '001',
-            'nombre' => 'almacen 1',
-            'office_id' => 1
-        ]);
+    {   
+        for($i=0;$i<=10000; $i++){
+            Warehouse::create([
+                'codigo' => '001'.$i,
+                'nombre' => 'almacen 1'.$i,
+                'office_id' => 1
+            ]);
+        }
+        
     }
 }

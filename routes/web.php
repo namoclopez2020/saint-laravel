@@ -64,3 +64,7 @@ Route::get('buy/pagar/{buy}','BuyController@pagar');
 Route::resource('/select','SesionesController');
 
 Route::resource('general', 'GeneralController');
+
+
+//rutas para datatable
+Route::get('/almacenes','DataTableController@almacen');

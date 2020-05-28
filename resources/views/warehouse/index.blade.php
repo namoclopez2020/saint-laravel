@@ -12,7 +12,7 @@
             <div class="card-header text-primary h3">Almacenes</div>
             <div class="card-body">
             <div class="table-responsive">
-            <table class="table table-hover" id="myTable" style="width:100%">
+            <table class="table table-hover" id="almacen" style="width:100%">
                 <thead class="bg-primary text-light">
                     <th>#</th>
                     <th>Nombre</th>
@@ -23,31 +23,7 @@
                 <tbody>
             
                 
-                @forelse ($warehouse as $itemWarehouse)
-                <tr>
-                        <td>{{  $loop->iteration }}</td>
-                        <td>{{ $itemWarehouse->nombre}}</td>
-                        <td>{{ $itemWarehouse->codigo}}</td>
-                        <td>{{ $itemWarehouse->office->nombre}}</td>
-                        <td class="text-center">
-                        <div class="btn-group">
-                            <a href="{{route('warehouse.edit', $itemWarehouse)}}"  class="btn  btn-warning mr-1"  >
-                            <i class="fa fa-edit"></i>
-                            </a>
-                            <form action="{{route('warehouse.destroy',$itemWarehouse)}}" method="POST">
-                                @csrf @method('DELETE')
-                            <button class="btn  btn-danger"> <span class=" fa fa-trash"></span></button>
-                            </form>
-                           
-                        </div>
-                        </td>
-                    
-                    </tr>  
-                @empty
-                    
-                @endforelse
-                    
-                    
+              
 
                 </tbody>
             </table>
@@ -63,4 +39,27 @@
 
 </div>
 
+@endsection
+@section('scripts')
+    <script>
+        almacen();
+
+        function elim (id){
+            $.ajax({
+                'method':'DELETE',
+                'type':'json',
+                'url':'/warehouse/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#almacen').dataTable().fnDestroy();
+                    almacen();
+                    display_msg('Almacen eliminado correctamente','success');
+                }
+
+            });
+        }
+    </script>
+    
 @endsection

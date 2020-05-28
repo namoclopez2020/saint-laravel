@@ -23,8 +23,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $warehouse = Warehouse::latest()->get();
-        return view('warehouse.index',compact('warehouse'));
+       
+        return view('warehouse.index');
     }
 
     /**
@@ -100,7 +100,7 @@ class WarehouseController extends Controller
     public function destroy(Warehouse $warehouse)
     {
         $warehouse->delete();
-
-        return redirect()->route('warehouse.index')->with('status','El almacén fue eliminado correctamente');
+        return true;
+      //  return redirect()->route('warehouse.index')->with('status','El almacén fue eliminado correctamente');
     }
 }
