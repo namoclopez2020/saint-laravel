@@ -13,14 +13,15 @@
          <div class="card">
              <div class="card-header"><i class="fa fa-edit">Nueva Compra</i></div>
              <div class="card-body">
-             <form id="datos_compra" method="POST" >
+             <form id="datos_compra"  method="POST" >
                @csrf
                <div class="form-row">
                <div class="form-group col-md-4 form-group-typeahead">
-                 
+                <!-- <input type="text" name="actualizar" value="0">-->
                  <label for="inputCity">Proveedor</label>
                  <input type="text" class="form-control input-sm" id="nombre_proveedor" placeholder="Selecciona un proveedor" >
-                         <input id="id_proveedor" name="id_proveedor" type='hidden'>
+                    <!--     <input id="id_proveedor" name="provider_id" type='hidden'>-->
+                              <input id="id_proveedor" name="provider_id" type='hidden'>
                  
                 
                </div>

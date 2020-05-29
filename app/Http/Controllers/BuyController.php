@@ -70,7 +70,8 @@ class BuyController extends Controller
         'actualizar' => 'required'
         ]);
         
-        $request['office_id'] = "1";
+        $request['office_id'] = session('office')->id;
+        
            //return $request->all();
         //capturar el costo total de la compra
         $id_usuario = auth()->user()->id;
