@@ -15,7 +15,7 @@
 		</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table" id="myTable" style="width:100%">
+					<table class="table" id="compra" style="width:100%">
 						<thead>
 							<tr  class="info">
 					<th>#</th>
@@ -30,25 +30,7 @@
 				        </tr>
 						</thead>
 						<tbody>
-						@forelse ($buy as $itemBuy)
-                        <tr>
-                            <td> {{$itemBuy->id}} </td>
-                            <td> {{$itemBuy->created_at->format('d-m-Y G:i:s')}} </td>
-                            <td> {{$itemBuy->provider->nombre}} </td>
-                            <td> {{$itemBuy->metodo_pago}} </td>
-                            <td> {!! status_compra($itemBuy->status_compra) !!} </td>
-                            <td class="text-center"> {{$itemBuy->pagado}} </td>
-                            <td> {{$itemBuy->costo_total_compra}} </td>
-                            <td>
-                            <div class="btn-group">
-                            <a class="btn btn-info mr-1" href="#" data-toggle="modal" data-target="#myModalcompras" onclick="mostrar('{{$itemBuy->id}}')">Detalles</a>
-                            <a href="#" onclick="detalles('{{$itemBuy->id}}')" class="btn btn-secondary"><span class="fa fa-print"> PDF</span></a>
-                            </div>
-                            </td>
-                            </tr>  
-                        @empty
-                            
-                        @endforelse
+						
 					
 					
 						</tbody>
@@ -63,6 +45,7 @@
 @endsection
 @section('scripts')
     <script>
+        compra();
         function mostrar(compra) {
             $(document).ready(function () {
                 $("#result").hide("slow");

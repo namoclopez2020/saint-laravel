@@ -147,6 +147,8 @@
 						display_msg('La cantidad pagada excede a la de la compra','error');
 						return false;
 					}
+					
+					
 					console.log(datos);
 					window.open("/buy/"+datos, "_blank");
 				//$("#resultados").html(datos);

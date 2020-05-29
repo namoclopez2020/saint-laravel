@@ -72,3 +72,5 @@ Route::get('/sucursal','DataTableController@sucursal');
 Route::get('/proveedor','DataTableController@proveedor');
 Route::get('/usuario','DataTableController@usuario');
 Route::get('/producto','DataTableController@producto');
+Route::get('/compras','DataTableController@compras');
+Route::get('/cuentasPorPagar','DataTableController@cuentasPorPagar');

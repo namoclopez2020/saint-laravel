@@ -32,8 +32,8 @@ class BuyController extends Controller
      */
     public function index()
     {
-        $buy = Buy::latest()->get();
-        return view ('buy.index',compact('buy'));
+       
+        return view ('buy.index');
        
     }
 

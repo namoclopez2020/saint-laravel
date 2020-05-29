@@ -13,7 +13,7 @@
 		</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table" id="myTable" style="width:100%">
+					<table class="table" id="cuentas_por_pagar" style="width:100%">
 						<thead>
 							<tr  class="info">
 					<th>#</th>
@@ -26,24 +26,7 @@
 				</tr>
 						</thead>
 						<tbody>
-                      @forelse ($compras as $itemCompra)
-                      <tr>
-                        <td> {{$loop->iteration}} </td>
-                        <td> {{$itemCompra->created_at}} </td>
-                        <td> {{$itemCompra->id}} </td>
-                        <td> {{$itemCompra->pagado}} </td>
-                        <td> {{$itemCompra->costo_total_compra}} </td>
-                        <td>
-                        <div class="btn-group">
-                        <a class="btn btn-info mr-1" href="#" data-toggle="modal" data-target="#myModalpago" onclick="mostrar('{{$itemCompra->id}}')">Pagar</a>
-                        
-                        </div>
-                        </td>
-                        </tr> 
-                      @empty
-                          
-                      @endforelse 
-					
+                    
 						
 						</tbody>
 					</table>
@@ -58,7 +41,7 @@
 
 @section('scripts')
 <script>
-
+cuentasPorPagar();
 
     function mostrar(compra) {
         $(document).ready(function () {
@@ -98,7 +81,10 @@
                             
                             if(datos == true){
                                 display_msg("pago realizado correctamente",'success');
-                        setTimeout('document.location.reload()',2000);
+                                $('#cuentas_por_pagar').dataTable().fnDestroy();
+                                cuentasPorPagar();
+                                $("#myModalpago").modal('hide');
+                       // setTimeout('document.location.reload()',2000);
                             }else{
                                 display_msg("Cantidad excede el monto maximo",'error');
                             }

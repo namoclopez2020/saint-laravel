@@ -238,6 +238,95 @@ function producto (){
 };
 
 
+function compra (){
+   var dataTable = $('#compra').DataTable({
+      "language": {
+         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+         
+      },
+      'responsive': true,
+      "ajax" : "/compras",
+      "serverSide" : true,
+      "processing" : true,
+      "columns":[
+         {data: "id"},
+         {data: "created_at"},
+         {render: function(data,type,row){
+            return row['provider']['nombre'];
+         }},
+         {render: function(data,type,row){
+            var pago = "";
+            switch (row['metodo_pago']) {
+               case "1":
+                  pago ="Efectivo";
+                   break;
+               case "2":
+                  pago ="Cheque";
+                   break;
+               case "3":
+                 pago ="Transferencia Bancaria";
+                   break;
+               case "4":
+                   pago ="Credito";
+                   break;
+           }
+           return pago;
+            
+         }},
+         {render:function(data,type,row){
+            var res = "<span class='badge badge-pill badge-warning'>Parcial</span>";;
+            if(row['status_compra']){
+               res = "<span class='badge badge-pill badge-success'>Pagado</span>";
+            }
+            return res;
+           
+         }},
+         {render: function(data,type,row){
+            return row['pagado'];
+         }},
+         {render:function(data,type,row){
+            return row['costo_total_compra'];
+         }},
+
+         {render: function(data,type,row){
+            $botones = "<div class='btn-group'>";
+            $botones +="<a class=\"btn btn-info mr-1\" href=\"#\" data-toggle=\"modal\" data-target=\"#myModalcompras\" onclick=\"mostrar('"+row['id']+"')\">Detalles</a>";
+            $botones +="<a href=\"#\" onclick=\"detalles('"+row['id']+"')\" class=\"btn btn-secondary\"><span class=\"fa fa-print\"> PDF</span></a>";
+            $botones +="</div>";
+            
+            return $botones;
+         }}
+      ]
+   })
+};
+
+
+function cuentasPorPagar (){
+   var dataTable = $('#cuentas_por_pagar').DataTable({
+      "language": {
+         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+         
+      },
+      'responsive': true,
+      "ajax" : "/cuentasPorPagar",
+      "serverSide" : true,
+      "processing" : true,
+      "columns":[
+         {data: "id"},
+         {data: "created_at"},
+         {data: "id"},
+         {data: "pagado"},
+         {data: "costo_total_compra"},
+         {render: function(data,type,row){
+            $botones = "<div class='btn-group'>";
+            $botones +="<a class=\"btn btn-info mr-1\" href=\"#\" data-toggle=\"modal\" data-target=\"#myModalpago\" onclick=\"mostrar('"+row['id']+"')\">Pagar</a>";
+            $botones +="</div>";
+            
+            return $botones;
+         }}
+      ]
+   })
+};
 
 
 
@@ -249,9 +338,7 @@ function producto (){
 
 
 
-
-
-
+function crear_compra(){
    var table = $('#producto_compra_venta').DataTable({
       "language": {
          url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -362,5 +449,8 @@ function producto (){
           $('input', cell).removeProp('checked');
        }
    });
+}
+
+  
 
    

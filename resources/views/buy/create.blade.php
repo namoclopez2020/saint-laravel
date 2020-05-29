@@ -139,7 +139,7 @@
   <script type="text/javascript" src="{{asset('/assets/js/VentanaCentrada.js')}}"></script>
   <script src="{{asset('/assets/js/nueva_compra.js')}}"></script>
   <script>
-    
+    crear_compra();
     function load(){
 	var tipo_pago=$('#tipo_pago').find(":selected").val();
   $("#loader2").fadeIn('slow');

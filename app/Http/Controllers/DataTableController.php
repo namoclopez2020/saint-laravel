@@ -8,6 +8,7 @@ use App\Office;
 use App\Provider;
 use App\User;
 use App\Product;
+use App\Buy;
 
 class DataTableController extends Controller
 {
@@ -34,6 +35,17 @@ class DataTableController extends Controller
         return datatables()->eloquent(Product::query()->with(['categorie','warehouse']))
         ->editColumn('es_serial', '{{$es_serial ? \'Sí\': \'No\' }}')
       
+        ->toJson();
+    }
+
+    public function compras(Request $request){
+        return datatables()->eloquent(Buy::query()->with(['provider']))
+       
+        ->toJson();
+    }
+
+    public function cuentasPorPagar(Request $request){
+        return datatables()->eloquent(Buy::query()->where('status_compra','=','0'))
         ->toJson();
     }
 
