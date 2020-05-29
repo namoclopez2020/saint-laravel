@@ -13,7 +13,7 @@
                 <div class="card-header text-primary h3">Proveedores</div>
                 <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-hover" id="myTable" style="width:100%">
+                <table class="table table-hover" id="proveedor" style="width:100%">
                     <thead class="bg-primary text-light">
                         <th>#</th>
                         <th>Nombre</th>
@@ -25,32 +25,7 @@
                     </thead>
                     <tbody>
                 
-                    
-                    @forelse ($provider as $itemProvider)
-                    <tr>
-                            <td>{{  $loop->iteration }}</td>
-                            <td>{{ $itemProvider->nombre}}</td>
-                            <td>{{ $itemProvider->representante}}</td>
-                            <td>{{ $itemProvider->telefono}}</td>
-                            <td>{{ $itemProvider->ruc}}</td>
-                            <td>{{ $itemProvider->direccion}}</td>
-                            <td class="text-center">
-                            <div class="btn-group">
-                                <a href="{{route('provider.edit', $itemProvider)}}"  class="btn  btn-warning mr-1"  >
-                                <i class="fa fa-edit"></i>
-                                </a>
-                                <form action="{{route('provider.destroy',$itemProvider)}}" method="POST">
-                                    @csrf @method('DELETE')
-                                <button class="btn  btn-danger"> <span class=" fa fa-trash"></span></button>
-                                </form>
-                               
-                            </div>
-                            </td>
-                        
-                        </tr>  
-                    @empty
-                        
-                    @endforelse
+                
                         
                         
 
@@ -68,4 +43,27 @@
     
     </div>
 
+@endsection
+@section('scripts')
+    <script>
+        proveedor();
+
+        function elim (id){
+            $.ajax({
+                'method':'DELETE',
+                'type':'json',
+                'url':'/provider/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#proveedor').dataTable().fnDestroy();
+                    proveedor();
+                    display_msg('Datos del proveedor eliminado correctamente','success');
+                }
+
+            });
+        }
+    </script>
+    
 @endsection

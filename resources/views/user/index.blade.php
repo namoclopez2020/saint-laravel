@@ -12,7 +12,7 @@
             <div class="card-header text-primary h3">Usuarios</div>
             <div class="card-body">
             <div class="table-responsive">
-            <table class="table table-hover" id="myTable" style="width:100%">
+            <table class="table table-hover" id="usuario" style="width:100%">
                 <thead class="bg-primary text-light">
                     <th>#</th>
                     <th>Nombre</th>
@@ -26,40 +26,7 @@
                 <tbody>
             
                 
-                @forelse ($user as $itemUser)
-                <tr>
-                        <td>{{  $loop->iteration }}</td>
-                        <td>{{ $itemUser->name}}</td>
-                        <td>{{ $itemUser->email}}</td>
-                        <td>
-                            <form action="{{ route('user.status',$itemUser)}}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button class="btn {{$itemUser->status ? 'btn-success' : 'btn-secondary'}} rounded btn-sm">{{$itemUser->status ? 'Activo' : 'Inactivo'}}</button>
-                            
-                            </form>
-                        </td>   
-                        <td>{{ $itemUser->user_level->name}}</td>
-                        <td>{{ $itemUser->created_at->format('d-m-Y H:g:i A')}}</td>
-                        <td>{{ $itemUser->updated_at->diffForHumans()}}</td>
-                        <td class="text-center">
-                        <div class="btn-group">
-                            <a href="{{route('user.edit', $itemUser)}}"  class="btn  btn-warning mr-1"  >
-                            <i class="fa fa-edit"></i>
-                            </a>
-                            <form action="{{route('user.destroy',$itemUser)}}" method="POST">
-                                @csrf @method('DELETE')
-                            <button class="btn  btn-danger"> <span class=" fa fa-trash"></span></button>
-                            </form>
-                           
-                        </div>
-                        </td>
-                    
-                    </tr>  
-                @empty
-                    
-                @endforelse
-                    
+              
                     
 
                 </tbody>
@@ -76,4 +43,43 @@
 
 </div>
 
+@endsection
+@section('scripts')
+    <script>
+        usuario();
+
+        function elim (id){
+            $.ajax({
+                'method':'DELETE',
+                'type':'json',
+                'url':'/user/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#usuario').dataTable().fnDestroy();
+                    usuario();
+                    display_msg('Datos del usuario eliminado correctamente','success');
+                }
+
+            });
+        }
+        function estado (id){
+            $.ajax({
+                'method':'PATCH',
+                'type':'json',
+                'url':'/status/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#usuario').dataTable().fnDestroy();
+                    usuario();
+                    display_msg('Usuario actualizado','success');
+                }
+
+            });
+        }
+    </script>
+    
 @endsection

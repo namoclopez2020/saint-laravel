@@ -97,7 +97,8 @@ class ProviderController extends Controller
     public function destroy(Provider $provider)
     {
         $provider->delete();
-        return redirect()->route('provider.index')
-        ->with('status','El proyecto fue eliminado con éxito');
+        return true;
+        /*return redirect()->route('provider.index')
+        ->with('status','El proyecto fue eliminado con éxito');*/
     }
 }

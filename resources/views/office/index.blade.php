@@ -11,7 +11,7 @@
                <div class="card-header text-primary h3">Lista de sucursales</div>
                <div class="card-body">
               <div class="table-responsive">
-              <table class="table table-hover" id="myTable" style="width:100%">
+              <table class="table table-hover" id="sucursal" style="width:100%">
                 <thead class="bg-primary text-light">
                     <th>#</th>
                     <th>Nombre</th>
@@ -24,35 +24,6 @@
                 </thead>
                 <tbody>
                    
-                    @forelse($office as $itemOffice)
-                        
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $itemOffice->nombre}}</td>
-                            <td>{{ $itemOffice->direccion}}</td>
-                            <td>{{ $itemOffice->ruc}}</td>
-                            <td>{{ $itemOffice->email}}</td>
-                            <td>{{ $itemOffice->logo }}</td>
-                            <td>{{ $itemOffice->created_at->diffForHumans()}}</td>
-                            <td class="text-center">
-                            <div class="btn-group">
-                                <a href="{{route('office.edit',$itemOffice)}}"  class="btn  btn-warning mr-1"  >
-                                <i class="fa fa-edit"></i>
-                                </a>
-                                <form action="{{route('office.destroy',$itemOffice)}}" method="POST">
-                                    @csrf @method('DELETE')
-                                <button class="btn  btn-danger"> <span class=" fa fa-trash"></span></button>
-                                </form>
-                            </div>
-                            </td>
-                        
-                         </tr>
-                        
-                    @empty
-                            
-                     
-                    @endforelse
-                      
                   
                 </tbody>
             </table>
@@ -68,5 +39,28 @@
  
  </div>
 
+    
+@endsection
+@section('scripts')
+    <script>
+        sucursal();
+
+        function elim (id){
+            $.ajax({
+                'method':'DELETE',
+                'type':'json',
+                'url':'/office/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#sucursal').dataTable().fnDestroy();
+                    sucursal();
+                    display_msg('Sucursal eliminada correctamente','success');
+                }
+
+            });
+        }
+    </script>
     
 @endsection

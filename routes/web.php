@@ -68,3 +68,7 @@ Route::resource('general', 'GeneralController');
 
 //rutas para datatable
 Route::get('/almacenes','DataTableController@almacen');
+Route::get('/sucursal','DataTableController@sucursal');
+Route::get('/proveedor','DataTableController@proveedor');
+Route::get('/usuario','DataTableController@usuario');
+Route::get('/producto','DataTableController@producto');

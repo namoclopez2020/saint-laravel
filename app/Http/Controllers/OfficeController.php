@@ -21,8 +21,8 @@ class OfficeController extends Controller
      */
     public function index()
     {   
-        $office = Office::latest()->get();
-        return view('office.index',compact('office'));
+        
+        return view('office.index');
     }
 
     /**
@@ -83,7 +83,7 @@ class OfficeController extends Controller
     public function update(SaveOfficeRequest $request, Office $office)
     {   
         $office->update($request->validated());
-
+        
         return redirect()->route('office.index')->with('status','La sucursal fue actualizada correctamente');
     }
 
@@ -96,7 +96,8 @@ class OfficeController extends Controller
     public function destroy(Office $office)
     {
         $office->delete();
-        return redirect()->route('office.index')
-        ->with('status','La sucursal fue eliminada con éxito');
+        return true;
+        /*return redirect()->route('office.index')
+        ->with('status','La sucursal fue eliminada con éxito');*/
     }
 }

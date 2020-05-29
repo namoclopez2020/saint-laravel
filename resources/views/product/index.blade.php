@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="myTable" style="width:100%">
+                        <table class="table table-hover" id="producto" style="width:100%">
                             <thead class="bg-primary text-light">
                                 <th>#</th>
                                 <th>Nombre</th>
@@ -30,39 +30,7 @@
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @forelse ($product as $itemProducto)
-                                    <tr>
-                                        <td> {{$loop->iteration}} </td>
-                                        <td> {{$itemProducto->nombre}} </td>
-                                        <td> {{$itemProducto->codigo}} </td>
-                                        <td> {{$itemProducto->created_at}} </td>
-                                        <td> {{$itemProducto->es_serial ? 'Sí': 'No' }} </td>
-                                        <td> {{$itemProducto->medida_paq}} / {{$itemProducto->medida_und}} </td>
-                                        <td> {{ is_null($itemProducto->fraccion) ? 'Sin fracción' : $itemProducto->fraccion }} </td>
-                                        <td> {{ stock($itemProducto->stock_paq,$itemProducto->stock_und,$itemProducto->medida_paq,$itemProducto->medida_und) }} </td>
-                                        <td> {{ stock($itemProducto->min_paq,$itemProducto->min_und,$itemProducto->medida_paq,$itemProducto->medida_und) }}</td>
-                                        <td> {{$itemProducto->categorie->nombre}} </td>
-                                        <td> {{$itemProducto->warehouse->nombre}} </td>
-                                        <td> {!! costos($itemProducto->costo_anterior,$itemProducto->costo_actual,$itemProducto->costo_promedio) !!} </td>
-                                        <td> {!! costos($itemProducto->precio1,$itemProducto->precio2,$itemProducto->precio3) !!} </td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" href="#" data-toggle="modal" data-target="#myModalmostrar" onclick="mostrar('{{$itemProducto->id}}')"> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>
-                                
-                                                <a href="  "  class="btn  btn-danger ml-3"  >
-                                                    <span class=" fa fa-trash"> </span>
-                                                </a>
-                                        
-
-                                            </div>
-                                        </td>
-                                    
-                                    </tr>
-                                    
-                                @empty
-                                            
-                                @endforelse
-                                        
+                         
                             </tbody>
                         </table>
                     </div>
@@ -71,8 +39,9 @@
         </div>
     </div>
 </div>
-@endsection
 @include('product.modal.detalles')
+@endsection
+
 @section('scripts')
     <script>
 
@@ -88,5 +57,24 @@
             });
         }
 
+    
+        producto();
+
+        function elim (id){
+            $.ajax({
+                'method':'DELETE',
+                'type':'json',
+                'url':'/product/'+id,
+                'headers': {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                'success': function(datos){
+                    $('#producto').dataTable().fnDestroy();
+                    producto();
+                    display_msg('Datos del producto eliminado correctamente','success');
+                }
+
+            });
+        }
     </script>
 @endsection

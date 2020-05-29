@@ -132,8 +132,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
-        return redirect()->route('user.index')->with('status','El usuario fue eliminado correctamente');
+        return true;
+       // return redirect()->route('user.index')->with('status','El usuario fue eliminado correctamente');
     }
 
     public function status(Request $request,User $user){
@@ -141,7 +141,7 @@ class UserController extends Controller
       
         $user->status = !$user->status;
         $user->save();
-       
-        return redirect()->route('user.index')->with('status','Usuario actualizado correctamente');
+        return true;
+        // return redirect()->route('user.index')->with('status','Usuario actualizado correctamente');
     }
 }

@@ -111,48 +111,7 @@
                        </tr>	
                                </thead>
                                <tbody>
-                     @forelse ($product as $itemProduct)
-                     <tr>
-                        <td> {{$itemProduct->codigo}} </td>
-                        <td> {{$itemProduct->nombre}} </td>
-                        <td> {{$itemProduct->categorie->nombre}} </td>
-                        <td> {{ stock($itemProduct->stock_paq,$itemProduct->stock_und,$itemProduct->medida_paq,$itemProduct->medida_und) }} </td>
-                        <td> {{$itemProduct->medida_paq}} / {{$itemProduct->medida_und}} </td>
-                        <td> {{$itemProduct->es_serial ? 'Sí': 'No' }} </td>
-                        <td>
-                          @if ($itemProduct->usa_empaque)
-                            <div class="form-group row">
-                                <input type="number" class="form-control form-control-sm col-2 col-lg-2"   id="cantidad_paq_{{$itemProduct->id}}"  value="0" >
-                                  <span class="col-4 col-lg-2"> {{$itemProduct->medida_paq}} </span>
-                                  <input type="number" class="form-control form-control-sm col-2 col-lg-2"   id="cantidad_und_{{$itemProduct->id}}"  value="0" >
-                                  <span class="col-4 col-lg-2"> {{$itemProduct->medida_und}} </span>
-                            </div>
-                          @else
-                            <div class="form-group row">
-                        
-                            <input type="number" class="form-control form-control-sm col-3 ml-3"   id="cantidad_und_{{$itemProduct->id}}"  value="1" >
-                            <span class="col-4"></span>
-                            </div> 
-                          @endif
-                        
-                        
-                          
-                              
                     
-    
-                        </td>
-                        <td><input type="number" class="form-control form-control-sm col-5" id="costo_prod_{{$itemProduct->id}}"  ></td>
-                        <td>
-                          @csrf
-                        <a class='btn btn-info'href="#" onclick="agregar('{{$itemProduct->id}}')"><i class="fa fa-plus"></i></a>
-                        </td>
-                    
-                   </tr>
-                   
-                     @empty
-                         
-                     @endforelse
-                       
                   </tbody>
                                  </table>
               </div>

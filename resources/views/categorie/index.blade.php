@@ -75,3 +75,9 @@
     </div>
 </div>
 @endsection
+@section('scripts')
+    <script>
+        tabla();
+    </script>
+    
+@endsection
