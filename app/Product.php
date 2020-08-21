@@ -7,6 +7,7 @@ use App\Categorie;
 use App\Warehouse;
 use App\Provider;
 use App\Batch;
+use App\Serial;
 
 class Product extends Model
 {
@@ -26,4 +27,8 @@ class Product extends Model
     public function batches(){
         return $this->hasMany(Batch::class);
     }
+    public function seriales(){
+        return $this->hasMany(Serial::class);
+    }
+
 }

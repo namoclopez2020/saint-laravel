@@ -9,6 +9,7 @@ use App\Provider;
 use App\Warehouse;
 use App\Categorie;
 use App\product_provider;
+use App\Serial;
 
 
 class ProductController extends Controller
@@ -25,8 +26,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $product = Product::latest()->get();
         
         return view('product.index', compact('product'));
@@ -37,8 +37,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $provider = Provider::latest()->get();
         $warehouse = Warehouse::latest()->get();
         $categorie = Categorie::latest()->get();
@@ -147,5 +146,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function serialesProduct(Product $product){
+         $product =  $product->with('seriales')->get();
+         if(!$product){
+             return null;
+         }else{ 
+            return view ('product.ajax.detalle',[
+                'product' => $product[0]->seriales
+            ]);
+         }
     }
 }

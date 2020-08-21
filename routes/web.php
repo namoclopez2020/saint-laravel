@@ -31,6 +31,8 @@ Route::resource('warehouse', 'WarehouseController');
 
 Route::resource('user', 'UserController');
 
+
+
 Route::PATCH('/password/{user}','UserController@password')->name('user.password');
 
 Route::PATCH('/status/{user}','UserController@status')->name('user.status');
@@ -74,3 +76,7 @@ Route::get('/usuario','DataTableController@usuario');
 Route::get('/producto','DataTableController@producto');
 Route::get('/compras','DataTableController@compras');
 Route::get('/cuentasPorPagar','DataTableController@cuentasPorPagar');
+
+
+//rutas de seriales
+Route::get('serial/{id}','ProductController@serialesProduct');

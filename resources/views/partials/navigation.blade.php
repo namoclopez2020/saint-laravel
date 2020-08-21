@@ -67,7 +67,7 @@
             <ul id="tablesDropdown" class="collapse list-unstyled ">
               <li><a href="{{route('product.create')}}">Agregar producto</a></li>
               <li><a href="{{route('product.index')}}">Lista de productos</a></li>
-              <li><a href="seriales.php">Seriales</a></li>
+              
             </ul>
           </li>
           <li><a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-page"></i>Compras </a>

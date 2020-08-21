@@ -197,7 +197,7 @@ function producto (){
          {data: "nombre"},
          {data: "codigo"},
          {data: "created_at"},
-         {data: "es_serial"},
+         {data: "esSerialText"},
 
          {render: function(data,type,row){
             return row['medida_paq']+"/"+row['medida_und'];
@@ -224,14 +224,17 @@ function producto (){
          
          
          {render: function(data,type,row){
-            $botones = "<div class='btn-group'>";
-            $botones +="<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalmostrar' onclick='mostrar("+row['id']+")'> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>";
-            $botones +="<a href='/product/"+row['id']+"/edit'  class='btn  btn-warning mr-1'  >";
-            $botones +="<i class='fa fa-pencil'></i></a>";
-            $botones +="<button onclick='elim("+row['id']+")' class='btn  btn-danger'> <span class='fa fa-trash'></span></button>";
-            $botones +="</div>";
+            botones = "<div class='btn-group'>";
+            botones +="<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalmostrar' onclick='mostrar("+row['id']+")'> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>";
+            botones +="<a href='/product/"+row['id']+"/edit'  class='btn  btn-warning mr-1'  >";
+            botones +="<i class='fa fa-pencil'></i></a>";
+            if(parseInt(row['es_serial']) === 1){
+               botones += "<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalseriales' onclick='ver_seriales("+row['id']+")'> Seriales</a>";
+            }
+            botones +="<button onclick='elim("+row['id']+")' class='btn  btn-danger'> <span class='fa fa-trash'></span></button>";
+            botones +="</div>";
             
-            return $botones;
+            return botones;
          }}
       ]
    })
@@ -327,16 +330,6 @@ function cuentasPorPagar (){
       ]
    })
 };
-
-
-
-
-
-
-
-
-
-
 
 function crear_compra(){
    var table = $('#producto_compra_venta').DataTable({
