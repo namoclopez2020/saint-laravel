@@ -213,6 +213,26 @@ class BuyController extends Controller
         return json_encode($return_arr);
     }
 
+    public function productosCompra(Request $request){
+        $return_arr = array();
+        $nombre=urldecode($request['query']);
+        $products = Product::select(
+            'products.*'
+            )->where('products.nombre','like',"%$nombre%")
+            ->where('warehouses.office_id',session('office')->id)
+            ->join('warehouses','warehouses.id','products.warehouse_id')
+            ->get();
+        foreach($products as $row){
+            $row_array['value'] = $row['nombre'];
+            $row_array['nombre_producto'] = $row['nombre'];
+            $row_array['id'] = $row['id'];
+            
+            array_push($return_arr,$row_array);
+        }
+       
+        return json_encode($return_arr);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -141,21 +141,21 @@
   <script>
     crear_compra();
     function load(){
-	var tipo_pago=$('#tipo_pago').find(":selected").val();
-  $("#loader2").fadeIn('slow');
-	$.ajax({
-		type:"GET",
-		url:'/TmpCompra/pago/'+tipo_pago,
-		 beforeSend: function(objeto){
-	$("#ajax_pago").html("Mensaje: Cargando...");
-	  },
-		success:function(data){
-			$("#ajax_pago").html(data);
-			
-			
-			
-		}
-	})
+      var tipo_pago=$('#tipo_pago').find(":selected").val();
+        $("#loader2").fadeIn('slow');
+        $.ajax({
+          type:"GET",
+          url:'/TmpCompra/pago/'+tipo_pago,
+          beforeSend: function(objeto){
+        $("#ajax_pago").html("Mensaje: Cargando...");
+          },
+          success:function(data){
+            $("#ajax_pago").html(data);
+            
+            
+          
+        }
+    })
 }
 
     $(document).ready(function() {

@@ -3,6 +3,66 @@
 @section('title','Compras')
     
 @section('content')
+<style>
+	.ui-autocomplete-input {
+	border: none;
+	border: 1px solid #DDD !important;
+	padding-top: 0px !important;
+	z-index: 1511;
+	position: relative;
+	}
+	.ui-menu .ui-menu-item a {
+	font-size: 12px;
+	}
+	.ui-autocomplete {
+	position: fixed;
+	top: 100%;
+	left: 0;
+	z-index: 1051 !important;
+	float: left;
+	display: none;
+	padding: 4px 0;
+	list-style: none;
+	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	*border-right-width: 2px;
+	*border-bottom-width: 2px;
+	}
+	.ui-menu-item > a.ui-corner-all {
+		display: block;
+		padding: 3px 15px;
+		clear: both;
+		font-weight: normal;
+		line-height: 18px;
+		color: #555555;
+		white-space: nowrap;
+		text-decoration: none;
+	}
+	.ui-state-hover, .ui-state-active {
+		color: #ffffff;
+		text-decoration: none;
+		background-color: #0088cc;
+		border-radius: 0px;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		background-image: none;
+	}
+	#modalIns{
+		width: 500px;
+	}
+</style>
 <div  class="container-flui" style="padding-top: 60px">
 	
     <div class="col-md-12">
@@ -108,13 +168,37 @@
 					placeholder:'Selecciona un proveedor'
 				});
 				input.appendTo(div_b);
+				input.autocomplete({
+                    source: function(request, response) {
+                        
+						var query=request.term;
+                        $.ajax({
+                            url:"buy/provider/"+query,
+                            method: 'get',
+							dataType:"json",
+                            
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    
+					minLength: 1,
+					select: function(event,ui){
+						event.preventDefault();
+						id_proveedor = ui.item.id_proveedor;
+						$('#nombre_proveedor').val(ui.item.nombre_empresa);
+						$('#telefono').val(ui.item.telefono);
+						$('#ruc').val(ui.item.ruc);
+					}
+                });
 				form.appendTo('#contenido');
 				div_b = $('<div/>',{
 					class :'form-group col-md-4'
 				});
 					label = $('<label/>',{
 						class:'inputCity',
-						text :'Proveedor'
+						text :'RUC'
 					});
 					label.appendTo(div_b);
 					input = $('<input/>',{
@@ -143,44 +227,144 @@
 					});
 					input.appendTo(div_b);
 					div_b.appendTo(div_form_row);
+				div_form_row_1 = $('<div/>',{
+					class :'form-row'
+				});
+					div_form_group = $('<div/>',{
+						class:'form-group col-md-4'
+					});
+						label = $('<label/>',{
+							class :'form-control-label',
+							text : 'Metodo de pago'
+						});
+						select_opt = $('<select/>',{
+							class:'form-control input-sm',
+							id:'condiciones',
+						});
+						options_va = '<option value="1">Efectivo</option>';
+						options_va += '<option value="2">Cheque</option>';
+						options_va += '<option value="3">Transferencia bancaria</option>';
+						select_opt.html(options_va);
+					label.appendTo(div_form_group);
+					select_opt.appendTo(div_form_group);
+					div_form_group.appendTo(div_form_row);
+					div_form_row.appendTo(div_container);
 
-				//   <div class="form-row">
+					div_form_group = $('<div/>',{
+						class:'form-group col-md-2'
+					});
+						label = $('<label/>',{
+							class :'form-control-label',
+							text : 'Tipo de pago'
+						});
+						select_opt_1 = $('<select/>',{
+							class:'form-control input-sm',
+							id:'tipo_pago',
+						});
+						options_va = '<option value="1">Total</option>';
+						options_va += '<option value="2">Parcial</option>';
+						select_opt_1.html(options_va);
+					label.appendTo(div_form_group);
+					select_opt_1.appendTo(div_form_group);
+					div_form_group.appendTo(div_form_row);
 
-				//   <div class="form-group col-md-4">
-				// 	<label for="inputCity">Telefono</label>
-				// 	<input type="text" class="form-control input-sm" id="tel" placeholder="tel" readonly>
-				//   </div>	
-				//   </div>
+					div_form_group = $('<div/>',{
+						class:'form-group col-md-2',
+						id:'div_pagado',
+						style:'display:none'
+					});
+						label = $('<label/>',{
+							class :'form-control-label',
+							text : 'Cantidad a pagar'
+						});
+					label.appendTo(div_form_group);
+					div_form_group.appendTo(div_form_row);
+					input_pagado = $('<input/>',{
+						class : 'form-control input-sm',
+						id:'pagado'
+					});
+					input_pagado.appendTo(div_form_group);
+					select_opt_1.on("change", function(){
+						$( "#tipo_pago option:selected" ).each(function() {
+							if($(this).val() == 1){
+								$("#div_pagado").hide();
+								$("#pagado").val('');
+							}else{
+								$("#div_pagado").show();
+								$("#pagado").val('');
+							}
+						});
+					});
+					div_form_group = $('<div/>',{
+						class:'form-group col-md-4'
+					});
+						label = $('<label/>',{
+							class :'form-control-label',
+							text : 'Producto'
+						});
+						input_producto = $('<input/>',{
+							class : 'form-control input-sm',
+							id:'nombre_producto',
+							placeholder:'Seleccione un producto'
+						});
+						input_producto.autocomplete({
+							source: function(request, response) {
+								
+								var query=request.term;
+								$.ajax({
+									url:"buy/products/"+query,
+									method: 'get',
+									dataType:"json",
+									
+									success: function(data) {
+										response(data);
+									}
+								});
+							},
+							
+							minLength: 1,
+							select: function(event,ui){
+								event.preventDefault();
+								$('#nombre_producto').val(ui.item.nombre_producto);
+								
+							}
+						});
+					label.appendTo(div_form_group);
+					input_producto.appendTo(div_form_group);
+					div_form_group.appendTo(div_form_row);
+
+					div_form_group = $('<div/>',{
+						class:'form-group col-md-2'
+					});	
+						label = $('<label/>',{
+							class :'form-control-label ',
+							text : ''
+						});
+						
+						button_agregar = $('<button/>',{
+							class:'btn btn-info btn-block mt-2 rounded',
+							id:'tipo_pago',
+						});
+						span_button = $('<span/>',{
+							class: 'fa fa-plus',
+							text:'Agregar'
+						});
+						span_button.appendTo(button_agregar);
+
+					label.appendTo(div_form_group);
+					
+					button_agregar.appendTo(div_form_group);
+					div_form_group.appendTo(div_form_row);
+				//  
 				//   <div class="form-row">
-				//   <div class="form-group col-md-4">
-				// 			<label class="form-control-label">Fecha</label>
-				// 			<input type="text" id="fecha" value="" class="form-control input-datepicker">
-				//   </div>
-				//   <div class="form-group col-md-2">
-				//   <label class="form-control-label">Pago</label>
-								  
-				// 					  <select class='form-control input-sm' id="condiciones" name="condiciones">
-				// 						  <option value="1">Efectivo</option>
-				// 						  <option value="2">Cheque</option>
-				// 						  <option value="3">Transferencia bancaria</option>
-									  
-				// 					  </select>
-								  
-				//   </div>
-				//   <div class="form-group col-md-2">
-				//   <label for="email" class="form-control-label">Tipo de pago</label>
-								  
-				// 					  <select class='form-control input-sm' id="tipo_pago" name="tipo_pago" onchange="load()">
-				// 						  <option value="1">Total</option>
-				// 						  <option value="0">Parcial</option>
-										  
-				// 					  </select>
-								  
-				//   </div>
 				//   <div class="form-group col-md-4" id="ajax_pago">
-						 
+				// 		  <label for="icono" >Cantidad a pagar:</label>
+				// 			<div class="input-group"><div class="input-group-prepend">
+				// 			<div class="input-group-text"></div>
+				// 			</div>
+				// 		<input type="text" id="pagado" class="form-control col-4" ></div>
 								  
-				//   </div>
+				// //   </div>
 				  
 				//   </div>
 				//   <div class="form-row">

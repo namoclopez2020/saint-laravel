@@ -48,6 +48,8 @@ Route::resource('buy', 'BuyController');
 
 Route::get('/buy/provider/{query}','BuyController@proveedor');
 
+Route::get('/buy/products/{query}','BuyController@productosCompra');
+
 Route::resource('TmpCompra', 'TmpCompraController');
 
 Route::get('/TmpCompra/pago/{pago}','TmpCompraController@pago');
