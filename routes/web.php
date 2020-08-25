@@ -50,6 +50,8 @@ Route::get('/buy/provider/{query}','BuyController@proveedor');
 
 Route::get('/buy/products/{query}','BuyController@productosCompra');
 
+Route::post('/buy/info_producto','BuyController@infoProducto');
+
 Route::resource('TmpCompra', 'TmpCompraController');
 
 Route::get('/TmpCompra/pago/{pago}','TmpCompraController@pago');

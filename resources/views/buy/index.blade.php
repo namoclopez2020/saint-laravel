@@ -100,9 +100,10 @@
 		</div>	
 		
 	</div>
-    </div>
-	@include('buy.modal.detalles')
+	</div>
 	@include('buy.modal.nueva_compra')
+	@include('buy.modal.detalles')
+	
 @endsection
 @section('scripts')
     <script>
@@ -326,6 +327,8 @@
 							select: function(event,ui){
 								event.preventDefault();
 								$('#nombre_producto').val(ui.item.nombre_producto);
+								alert('hola');
+								insertar_fila(ui.item.id);
 								
 							}
 						});
@@ -350,7 +353,10 @@
 							text:'Agregar'
 						});
 						span_button.appendTo(button_agregar);
-
+						button_agregar.on('click', function(){
+							event.preventDefault();
+							
+						});
 					label.appendTo(div_form_group);
 					
 					button_agregar.appendTo(div_form_group);
@@ -395,6 +401,24 @@
 			})
 		}
 		nueva_compra();
-    </script>
 
+		var insertar_fila = (id) => {
+			let datos = {
+				id
+			}
+			
+			$.ajax({
+				url:"buy/info_producto",
+				method: 'post',
+				dataType:"json",
+				data: datos,
+				headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+				success: function(data) {
+					console.log(data);
+				}
+			});
+		}
+    </script>
 @endsection

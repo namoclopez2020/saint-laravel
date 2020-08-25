@@ -304,4 +304,26 @@ class BuyController extends Controller
     {
         //
     }
+
+    public function infoProducto (Request $request){
+        if(!is_numeric($request['id'])){
+            return null;
+        }
+        $id = $request['id'];
+        $product = Product::select([
+            'es_serial',
+            'id',
+            'fraccion',
+            'medida_paq',
+            'medida_und',
+            'min_paq',
+            'min_und',
+            'nombre',
+            'usa_empaque'
+        ])->where('id',$id)->first()->get();
+        if(!$product){
+            return null;
+        }
+        return $product;
+    }
 }
