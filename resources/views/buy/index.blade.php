@@ -327,7 +327,7 @@
 							select: function(event,ui){
 								event.preventDefault();
 								$('#nombre_producto').val(ui.item.nombre_producto);
-								alert('hola');
+								
 								insertar_fila(ui.item.id);
 								
 							}
@@ -361,43 +361,46 @@
 					
 					button_agregar.appendTo(div_form_group);
 					div_form_group.appendTo(div_form_row);
-				//  
-				//   <div class="form-row">
-				//   <div class="form-group col-md-4" id="ajax_pago">
-				// 		  <label for="icono" >Cantidad a pagar:</label>
-				// 			<div class="input-group"><div class="input-group-prepend">
-				// 			<div class="input-group-text"></div>
-				// 			</div>
-				// 		<input type="text" id="pagado" class="form-control col-4" ></div>
-								  
-				// //   </div>
-				  
-				//   </div>
-				//   <div class="form-row">
-				// 	  <div class="col-12">
-				// 	  <div class="pull-right">
-							  
-				// 			  <a href="add_provider.php" class="btn btn-secondary " >
-				// 			   <span class="fa fa-user"></span> Nuevo proveedor
-				// 			  </a>
-				// 		  <!--	<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">
-				// 			   <span class="glyphicon glyphicon-ing"></span> Agregar productos
-				// 			  </button>-->
-				// 			  <button type="submit" class="btn btn-success ">
-				// 				<span class="fa fa-print"></span> Imprimir
-				// 			  </button>
-				// 		  </div>	
-				// 	  </div>
-				//   </div>
-			
-					  
-			
-      
-        
-            
-         
+					div_row = $('<div/>',{
+						class : 'form-row border-top border-info mt-3 pt-3 font-weight-bold',
+						id:'cabecera_productos'
+					});
+					div_row.appendTo(div_container);
+						div_col = $('<div/>',{
+							class :'form-group col-md-4'
+						});
+						label = $('<label/>',{
+							class:'inputCity',
+							text :'Producto'
+						});
+						label.appendTo(div_col);
+						div_col.appendTo(div_row);
 
-
+						div_col = $('<div/>',{
+							class :'form-group col-md-4'
+						});
+						label = $('<label/>',{
+							class:'inputCity',
+							text :'Cantidad'
+						});
+						label.appendTo(div_col);
+						div_col.appendTo(div_row);
+						div_col = $('<div/>',{
+							class :'form-group col-md-4'
+						});
+						label = $('<label/>',{
+							class:'inputCity',
+							text :'Precio'
+						});
+						label.appendTo(div_col);
+						div_col.appendTo(div_row);
+					div_row = $('<div/>',{
+						class : 'form-row border-top  mt-3 pt-3',
+						id:'area_productos'
+					});
+					div_row.appendTo(div_container);
+			
+			
 			})
 		}
 		nueva_compra();
@@ -416,7 +419,37 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
 				success: function(data) {
-					console.log(data);
+					data = data[0];
+					div_row = $('#area_productos');
+					div_col = $('<div/>',{
+							class :'form-group col-md-4'
+						});
+						label = $('<label/>',{
+							class:'inputCity',
+							text : data['nombre']
+						});
+						label.appendTo(div_col);
+						div_col.appendTo(div_row);
+
+						div_col = $('<div/>',{
+							class :'form-group col-md-3'
+						});
+						input = $('<input/>',{
+							class:'form-control input-sm col-10',
+							
+						});
+						input.appendTo(div_col);
+						div_col.appendTo(div_row);
+						div_col = $('<div/>',{
+							class :'form-group col-md-3'
+						});
+						input = $('<input/>',{
+							class:'form-control input-sm col-10',
+							
+						});
+						input.appendTo(div_col);
+						div_col.appendTo(div_row);
+						
 				}
 			});
 		}
