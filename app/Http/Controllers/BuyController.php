@@ -64,44 +64,64 @@ class BuyController extends Controller
     public function store(Request $request)
     {  
         $request->validate([
-        'provider_id' => 'required',
-        'condiciones'=> 'required',
-        'tipo_pago' => 'required',
-        'actualizar' => 'required'
+        'datos' => 'required',
         ]);
+        try{
+            $request['office_id'] = session('office')->id;     
+            $id_usuario = auth()->user()->id;
+            $id_proveedor = $request['id_proveedor'];
+            $tipo_pago = $request['tipo_pago'];
+            $condiciones = $request['condiciones'];
+            $costo_total = 0;
+            $productos = $request['productos'];
+            foreach($productos as $prod){
+                $costo_total += (double)$prod['precio'];
+            };
+            if($tipo_pago == "1"){
+                $pagado = $costo_total;
+            }else{
+                $pagado = $request['cantidad_pagado'];
+            }
+            $compra = Buy::create([
+                'provider_id' => $id_proveedor,
+                'costo_total_compra' => $costo_total,
+                'pagado' => $pagado,
+                'metodo_pago' => $condiciones,
+                'office_id' => $request['office_id'],
+                'status_compra' => $tipo_pago
+            ]);
+            if($compra){
+                Payment::create([
+                    'buy_id' => $compra->id,
+                    'monto_pagado' => $pagado,
+                    'user_id' => $id_usuario,
+                    'office_id' => $request['office_id'],
+                    'metodo_pago' => $request['condiciones']
+                ]);
+            }else{
+                $array = [
+                    'error' => 2,
+                    'mensaje' => 'Hubo un problema al generar la compra'
+                ];
+                return json($array);
+            }
+
+        }catch(\Illuminate\Database\QueryException $e){
+            $array = array(
+                'mensaje' => $e->getMessage(),
+                'codigo' => $e->getCode(), 
+                'sql' => $e->getSql(),
+                'bindings' => $e->getBindings(),
+            );
+            return $array;
+            //return Response::json(array('ErrorSql' => $array));
+        }
         
-        $request['office_id'] = session('office')->id;
         
-           //return $request->all();
-        //capturar el costo total de la compra
-        $id_usuario = auth()->user()->id;
-        $suma = tmp_compra::where('session_id','=',"$id_usuario")->select(DB::raw('SUM(costo_compra) as costo_total'))->get();
-        foreach($suma as $sum){
-            $costo_total = $sum['costo_total'];
-        }
-        if($request['pagado'] > $costo_total){
-            return false;
-        }
-        if($request['tipo_pago']){
-            $request['pagado'] = $costo_total;
-        }
-        $compra = Buy::create([
-            'provider_id' => $request['provider_id'],
-            'costo_total_compra' => $costo_total,
-            'pagado' => $request['pagado'],
-            'metodo_pago' => $request['condiciones'],
-            'office_id' => $request['office_id'],
-            'status_compra' => $request['tipo_pago']
-        ]);
+        
 
         //insertar datos en la tabla de pagos
-        Payment::create([
-            'buy_id' => $compra->id,
-            'monto_pagado' => $request['pagado'],
-            'user_id' => $id_usuario,
-            'office_id' => $request['office_id'],
-            'metodo_pago' => $request['condiciones']
-        ]);
+        
 
        $tmp = tmp_compra::where('session_id','=',"$id_usuario")->get();
         foreach($tmp as $item){
@@ -320,7 +340,7 @@ class BuyController extends Controller
             'min_und',
             'nombre',
             'usa_empaque'
-        ])->where('id',$id)->first()->get();
+        ])->where('id',$id)->get();
         if(!$product){
             return null;
         }

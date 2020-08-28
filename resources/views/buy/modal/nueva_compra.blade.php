@@ -17,8 +17,8 @@
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info btn-sm rounded" onclick="generar_compra()">Generar compra</button>
+          <button type="button" class="btn btn-secondary btn-sm rounded" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>

@@ -78,27 +78,23 @@
 					<table class="table" id="compra" style="width:100%">
 						<thead>
 							<tr  class="info">
-					<th>#</th>
-					<th>Fecha</th>
-					<th>Proveedor</th>
-					<th>Medio de Pago</th>
-					<th>Estado</th>
-					<th>Cantidad pagada</th>
-					<th class=''>Total</th>
-					<th class=''>Acciones</th>
-					
-				        </tr>
+								<th>#</th>
+								<th>Fecha</th>
+								<th>Proveedor</th>
+								<th>Medio de Pago</th>
+								<th>Estado</th>
+								<th>Cantidad pagada</th>
+								<th class=''>Total</th>
+								<th class=''>Acciones</th>
+				        	</tr>
 						</thead>
 						<tbody>
-						
-					
-					
+		
 						</tbody>
 					</table>
  				</div>
 			</div>
 		</div>	
-		
 	</div>
 	</div>
 	@include('buy.modal.nueva_compra')
@@ -122,7 +118,7 @@
         function detalles(id){
             window.open("/buy/"+id, "_blank");
         }
-
+		let id_proveedor;
 		var nueva_compra = function(){
 			$('.compra').on("click", function(){
 				$('#contenido').empty();
@@ -130,7 +126,7 @@
 				let form;
 				let div;
 				let label;
-				let id_proveedor;
+				id_proveedor = null;
 				form = $('<form/>',{
 					 'id' : 'form_compra',
 					'role'  : 'form',
@@ -164,7 +160,7 @@
 				label.appendTo(div_b);
 				input = $('<input/>',{
 					type:'text',
-					class: 'form-control input-sm',
+					class: 'form-control form-control-sm',
 					id:'nombre_proveedor',
 					placeholder:'Selecciona un proveedor'
 				});
@@ -204,7 +200,7 @@
 					label.appendTo(div_b);
 					input = $('<input/>',{
 						type:'text',
-						class: 'form-control input-sm',
+						class: 'form-control form-control-sm',
 						id:'ruc',
 						placeholder:'RUC',
 						readonly : true
@@ -221,7 +217,7 @@
 					label.appendTo(div_b);
 					input = $('<input/>',{
 						type:'text',
-						class: 'form-control input-sm',
+						class: 'form-control form-control-sm',
 						id:'telefono',
 						placeholder:'Telefono',
 						readonly : true
@@ -239,7 +235,7 @@
 							text : 'Metodo de pago'
 						});
 						select_opt = $('<select/>',{
-							class:'form-control input-sm',
+							class:'form-control form-control-sm',
 							id:'condiciones',
 						});
 						options_va = '<option value="1">Efectivo</option>';
@@ -259,7 +255,7 @@
 							text : 'Tipo de pago'
 						});
 						select_opt_1 = $('<select/>',{
-							class:'form-control input-sm',
+							class:'form-control form-control-sm',
 							id:'tipo_pago',
 						});
 						options_va = '<option value="1">Total</option>';
@@ -281,7 +277,7 @@
 					label.appendTo(div_form_group);
 					div_form_group.appendTo(div_form_row);
 					input_pagado = $('<input/>',{
-						class : 'form-control input-sm',
+						class : 'form-control form-control-sm',
 						id:'pagado'
 					});
 					input_pagado.appendTo(div_form_group);
@@ -304,7 +300,7 @@
 							text : 'Producto'
 						});
 						input_producto = $('<input/>',{
-							class : 'form-control input-sm',
+							class : 'form-control form-control-sm',
 							id:'nombre_producto',
 							placeholder:'Seleccione un producto'
 						});
@@ -345,7 +341,7 @@
 						});
 						
 						button_agregar = $('<button/>',{
-							class:'btn btn-info btn-block mt-2 rounded',
+							class:'btn btn-info btn-block mt-2 rounded btn-sm',
 							id:'tipo_pago',
 						});
 						span_button = $('<span/>',{
@@ -420,7 +416,16 @@
                 },
 				success: function(data) {
 					data = data[0];
-					div_row = $('#area_productos');
+					div_row = $('<div/>',{
+						id:'filas',
+						class:'form-row col-md-12',
+						"data-id":data['id'],
+						"data-empaque" :data['usa_empaque']
+					});
+					div_row.data('id',data['id']);
+					div_row.data('empaque',data['usa_empaque']);
+
+					div_row_1 = $('#area_productos');
 					div_col = $('<div/>',{
 							class :'form-group col-md-4'
 						});
@@ -432,26 +437,122 @@
 						div_col.appendTo(div_row);
 
 						div_col = $('<div/>',{
-							class :'form-group col-md-3'
+							class :'form-row col-md-4 '
 						});
 						input = $('<input/>',{
-							class:'form-control input-sm col-10',
-							
+							class:'form-control form-control-sm col-3 mr-1',
+							id:'cant_und'
 						});
 						input.appendTo(div_col);
+						label = $('<label/>',{
+							class:'inputCity mr-2',
+							text : data['medida_und'],
+							
+						});
+						label.appendTo(div_col);
+
+						if(parseInt(data['usa_empaque']) === 1){
+							input = $('<input/>',{
+								class:'form-control form-control-sm col-4 mr-1',
+								id:'cant_paq'
+								
+							});
+							label = $('<label/>',{
+								class:'inputCity',
+								text : data['medida_paq']
+							});
+							input.appendTo(div_col);
+							label.appendTo(div_col);
+							
+						}
 						div_col.appendTo(div_row);
 						div_col = $('<div/>',{
 							class :'form-group col-md-3'
 						});
 						input = $('<input/>',{
-							class:'form-control input-sm col-10',
+							class:'form-control form-control-sm col-10',
+							id:'precio'
 							
 						});
 						input.appendTo(div_col);
 						div_col.appendTo(div_row);
+						div_row.appendTo(div_row_1);
 						
 				}
 			});
+		}
+
+		var generar_compra = () => {
+			let filas = $("[id$=filas]");
+			let precio = 0;
+			let datos = {};
+			let productos = [];
+			let info = {};
+			let id;
+			let tipo_pago = $("#tipo_pago option:selected").val();
+			let condiciones = $("#condiciones option:selected").val();
+			let cantidad_pagado = null;
+			filas.each(function(){
+				id = $(this).data('id');
+				cant_und = $(this).find('#cant_und').val();
+				cant_paq = null;
+				if($(this).data('empaque') === 1){
+					cant_paq = $(this).find('#cant_paq').val();
+				}
+				cantidad = {
+					cant_und,
+					cant_paq
+				};
+				precio = $(this).find('#precio').val();
+
+				info = {
+					id,
+					cantidad,
+					precio
+				};
+				productos.push(info);
+			});
+			if(productos.length <= 0){
+				alert('elija por lo menos un producto');
+				$('#nombre_producto').focus();
+				return false;
+			}
+			if(!id_proveedor){
+				alert('Debe seleccionar un proveedor');
+				$('#nombre_proveedor').focus();
+				return false;
+			}
+			if(parseInt(tipo_pago) === 2){
+				cantidad_pagado = $('#pagado').val();
+				if(!cantidad_pagado){
+					alert('Debe colocar la cantidad a pagar');
+					$('#pagado').focus();
+					return false;
+				}
+			}
+			datos = {
+				productos,
+				id_proveedor,
+				tipo_pago,
+				condiciones,
+				cantidad_pagado
+			}
+			console.log('datos->',datos);
+		}
+
+		var generar_compra_ajax = (datos) => {
+			$.ajax({
+				url:"buy/info_producto",
+				method: 'post',
+				dataType:"json",
+				data: datos,
+				headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+				success: function(data) {
+
+				}
+			});	
 		}
     </script>
 @endsection
