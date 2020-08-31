@@ -32,7 +32,8 @@ class DataTableController extends Controller
     }
 
     public function producto(Request $request){
-        return datatables()->eloquent(Product::query()->with(['categorie','warehouse']))
+        
+        return datatables()->eloquent(Product::query())
         ->addColumn('esSerialText', '{{$es_serial ? \'Sí\': \'No\' }}')
         ->toJson();
     }

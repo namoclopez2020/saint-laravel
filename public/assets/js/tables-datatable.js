@@ -204,25 +204,8 @@ function producto (){
          }},
          {data: "fraccion"},
          {render:function(data,type,row){
-            return row['stock_paq']+"/"+row['stock_und'];
-         }},
-         {render:function(data,type,row){
             return row['min_paq']+"/"+row['min_und'];
          }},
-         {render:function(data,type,row){
-            return row['categorie']['nombre']
-         }},
-         {render:function(data,type,row){
-            return row['warehouse']['nombre']
-         }},
-         {render:function(data,type,row){
-            return row['costo_anterior']+"<br>"+row['costo_actual']+"<br>"+row['costo_promedio'];
-         }},
-         {render:function(data,type,row){
-            return row['precio1']+"<br>"+row['precio2']+"<br>"+row['precio3'];
-         }},
-         
-         
          {render: function(data,type,row){
             botones = "<div class='btn-group'>";
             botones +="<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalmostrar' onclick='mostrar("+row['id']+")'> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>";

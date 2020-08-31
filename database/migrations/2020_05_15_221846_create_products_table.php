@@ -18,24 +18,14 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->string('nombre');
             $table->string('codigo')->unique();
-            $table->string('costo_anterior');
-            $table->string('costo_promedio');
-            $table->string('costo_actual');
-            $table->string('precio1');
-            $table->string('precio2');
-            $table->string('precio3');
             $table->foreignId('categorie_id')
-            ->constrained('categories')->onDelete('cascade');
+                ->constrained('categories')->onDelete('cascade');
             $table->boolean('es_serial');
-            $table->foreignId('warehouse_id')
-            ->constrained('warehouses')->onDelete('cascade');
             $table->string('impuesto')->default('0');
             $table->boolean('usa_empaque');
             $table->string('medida_paq')->nullable();
             $table->string('medida_und');
             $table->integer('fraccion')->unsigned()->default(0);
-            $table->string('stock_paq')->nullable();
-            $table->string('stock_und')->nullable();
             $table->string('min_paq')->default('0');
             $table->string('min_und')->default('0'); 
 

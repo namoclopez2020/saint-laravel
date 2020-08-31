@@ -12,7 +12,7 @@ class WarehouseTableSeeder extends Seeder
      */
     public function run()
     {   
-        for($i=0;$i<=10000; $i++){
+        for($i=0;$i<=3; $i++){
             Warehouse::create([
                 'codigo' => '001'.$i,
                 'nombre' => 'almacen 1'.$i,

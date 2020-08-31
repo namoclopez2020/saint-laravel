@@ -13,7 +13,7 @@
                             Lista de productos
                         </div>
                         <div class="col-6 col-md-6 col-lg-6">
-                            <button class="btn btn-info float-right rounded" id="agregar_producto">Agregar Producto</button>
+                            <button class="btn btn-info float-right rounded btn-sm" id="agregar_producto">Agregar Producto</button>
                         </div>
                     </div>
                     
@@ -29,12 +29,8 @@
                                 <th>Es Serial</th>
                                 <th>Unidad de medida</th>
                                 <th>Fraccion</th>
-                                <th>Stock</th>
                                 <th>Stock minimo</th>
                                 <th>Categoria</th>
-                                <th>Almacen</th>
-                                <th>Costos</th>
-                                <th>Precios</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -47,6 +43,7 @@
         </div>
     </div>
 </div>
+@include('product.modal.nuevo_producto')
 @include('product.modal.detalles')
 @include('product.modal.seriales')
 @endsection
@@ -94,6 +91,218 @@
                 $("#cargar").hide("slow");
             });
         }
+
+        var nuevo_producto = function(){
+            $('#agregar_producto').on("click", function(){
+				$('#contenido').empty();
+                $('#modalNuevoProducto').modal('show');
+                let form;
+				let div;
+                let label;
+                form = $('<form/>',{
+					 'id' : 'form_compra',
+					'role'  : 'form',
+					'class'  : 'form-horizontal'
+				});
+				div_container = $('<div/>',{
+					class:'container-fluid'
+				});
+				div_form_row = $('<div/>',{
+					class:'form-row'
+				});
+				div_form_row.appendTo(div_container);
+				div_container.appendTo(form);
+				div_b = $('<div/>',{
+					class : 'form-group col-md-4 form-group-typeahead'
+				});
+				div_b.appendTo(div_form_row);
+				label = $('<label/>',{
+					class:'inputCity',
+					text :'Nombre'
+				});
+                label.appendTo(div_b);
+                form.appendTo($('#contenido'));
+                input = $('<input/>',{
+					type:'text',
+					class: 'form-control form-control-sm',
+					id:'nombre_producto',
+					placeholder:'Descripción'
+				});
+                input.appendTo(div_b);
+                div_b = $('<div/>',{
+					class :'form-group col-md-3'
+				});
+					label = $('<label/>',{
+						class:'inputCity',
+						text :'Codigo'
+					});
+					label.appendTo(div_b);
+					input = $('<input/>',{
+						type:'text',
+						class: 'form-control form-control-sm',
+						id:'codigo',
+						placeholder:'Codigo'
+						
+					});
+					input.appendTo(div_b);
+                    div_b.appendTo(div_form_row);
+                
+                div_b = $('<div/>',{
+                    class:'form-group col-md-3'
+                });
+                    label = $('<label/>',{
+                        class :'form-control-label',
+                        text : 'Medida para unidad'
+                    });
+                    select_opt = $('<select/>',{
+                        class:'form-control form-control-sm',
+                        id:'condiciones',
+                    });
+                    options_va = '<option value="1">Unidad</option>';
+                    options_va += '<option value="2">Gramos</option>';
+                    options_va += '<option value="3">Milititros</option>';
+                    select_opt.html(options_va);
+                    label.appendTo(div_b);
+					select_opt.appendTo(div_b);
+					div_b.appendTo(div_form_row);
+                    
+                div_b = $('<div/>',{
+                    class:'form-group col-md-2'
+                });
+                    label = $('<label/>',{
+                        class :'form-control-label',
+                        text : '¿Usa empaque?'
+                    });
+                    label.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check ',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'usa_empaque',
+                        id:'usa_empaque',
+                        value:'1'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'Si'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'usa_empaque',
+                        id:'usa_empaque',
+                        value:'0'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'No'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    
+                    div_b.appendTo(div_form_row);
+                $('input[type=radio][name=usa_empaque]').change(function() {
+                    if(parseInt(this.value) === 1){
+
+                    }else{
+                        
+                    }
+                });
+                div_b = $('<div/>',{
+                    class:'form-group col-md-2'
+                });
+                    label = $('<label/>',{
+                        class :'form-control-label',
+                        text : '¿Usa impuesto?'
+                    });
+                    label.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check ',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'usa_impuesto'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'Si'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'usa_impuesto'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'No'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    
+                    div_b.appendTo(div_form_row);
+                
+                    div_b = $('<div/>',{
+                        class:'form-group col-md-2'
+                    });
+                    label = $('<label/>',{
+                        class :'form-control-label',
+                        text : '¿Es serializable?'
+                    });
+                    label.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check ',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'es_serial'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'Si'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    div_radio = $('<div/>',{
+                        class : 'form-check',
+                    });
+                    radio = $('<input/>',{
+                        type:'radio',
+                        class :'form-check-input',
+                        name:'es_serial'
+                    });
+                    label_radio = $('<label/>',{
+                        class :'form-check-label',
+                        text:'No'
+                    });
+                    radio.appendTo(div_radio);
+                    label_radio.appendTo(div_radio);
+                    div_radio.appendTo(div_b);
+                    
+                    div_b.appendTo(div_form_row);
+                
+            });
+        }
+        
+        nuevo_producto();
         
     </script>
 @endsection
