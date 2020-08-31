@@ -1,5 +1,5 @@
 @auth
-<nav class="side-navbar">
+<nav class="side-navbar navbar-light">
     <div class="side-navbar-wrapper">
       <!-- Sidebar Header    -->
       <div class="sidenav-header d-flex align-items-center justify-content-center">

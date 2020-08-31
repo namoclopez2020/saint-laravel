@@ -8,7 +8,7 @@
           <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
               <div class="brand-text d-none d-md-inline-block"><span> Sistema de Inventario</span><strong class="text-primary"> {{session('office')->nombre ?? ''}} </strong></div></a></div>
           <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-            <!-- Notifications dropdown-->
+            <!-- Notifications dropdown
             <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
               <ul aria-labelledby="notifications" class="dropdown-menu">
                 <li><a rel="nofollow" href="#" class="dropdown-item"> 
@@ -34,7 +34,7 @@
                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
               </ul>
             </li>
-            <!-- Messages dropdown-->
+            <!-- Messages dropdown
             <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
               <ul aria-labelledby="notifications" class="dropdown-menu">
                 <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
@@ -55,13 +55,13 @@
                 <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
               </ul>
             </li>
-            <!-- Languages dropdown    -->
+            <!-- Languages dropdown    
             <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="./libs/img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
               <ul aria-labelledby="languages" class="dropdown-menu">
                 <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="./libs/img/flags/16/DE.png" alt="English" class="mr-2"><span>German</span></a></li>
                 <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="./libs/img/flags/16/FR.png" alt="English" class="mr-2"><span>French                                                         </span></a></li>
               </ul>
-            </li>
+            </li>-->
             <!-- Log out-->
             <li class="nav-item"><a href="#"
               href="{{ route('logout') }}"

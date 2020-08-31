@@ -538,11 +538,12 @@
 				cantidad_pagado
 			}
 			console.log('datos->',datos);
+			generar_compra_ajax(datos);
 		}
 
 		var generar_compra_ajax = (datos) => {
 			$.ajax({
-				url:"buy/info_producto",
+				url:"buy",
 				method: 'post',
 				dataType:"json",
 				data: datos,
@@ -550,7 +551,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
 				success: function(data) {
-
+					console.log(data);
 				}
 			});	
 		}

@@ -91,7 +91,11 @@ function sumar_stock($cantidad_paq,$cantidad_und,$usa_empaque,$stock_und,$stock_
     $und=$stock_und+$cantidad_und;
   endif;
 
-  return $paq."/".$und;
+  $cantidad = [
+      'paq' => $paq,
+      'und' => $und,
+  ];
+  return $cantidad;
   
 }
 function actualizar_costos($costo_actual,$costo_promedio,$costo_compra,$usa_empaque,$cantidad_und,$cantidad_paq,$fraccion){

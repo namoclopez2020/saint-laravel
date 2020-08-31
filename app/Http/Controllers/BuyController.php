@@ -9,7 +9,9 @@ use App\tmp_compra;
 use App\BuyDetail;
 use App\Batch;
 use App\Payment;
-use DB;
+use Debugbar;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -32,7 +34,7 @@ class BuyController extends Controller
      */
     public function index()
     {
-       
+        Debugbar::info('1');
         return view ('buy.index');
        
     }
@@ -64,8 +66,11 @@ class BuyController extends Controller
     public function store(Request $request)
     {  
         $request->validate([
-        'datos' => 'required',
+            'id_proveedor' => 'required',
+            'productos' => 'required',
+            'tipo_pago' => 'required',
         ]);
+        DB::beginTransaction();
         try{
             $request['office_id'] = session('office')->id;     
             $id_usuario = auth()->user()->id;
@@ -73,15 +78,22 @@ class BuyController extends Controller
             $tipo_pago = $request['tipo_pago'];
             $condiciones = $request['condiciones'];
             $costo_total = 0;
+            $hora_actual  = Carbon::now();
             $productos = $request['productos'];
+
+            $ids = [];
             foreach($productos as $prod){
-                $costo_total += (double)$prod['precio'];
+
+                $costo_total += floatval($prod['precio']);
+                array_push($ids,$prod['id']);
             };
+
             if($tipo_pago == "1"){
                 $pagado = $costo_total;
             }else{
                 $pagado = $request['cantidad_pagado'];
             }
+            
             $compra = Buy::create([
                 'provider_id' => $id_proveedor,
                 'costo_total_compra' => $costo_total,
@@ -90,24 +102,57 @@ class BuyController extends Controller
                 'office_id' => $request['office_id'],
                 'status_compra' => $tipo_pago
             ]);
-            if($compra){
-                Payment::create([
-                    'buy_id' => $compra->id,
-                    'monto_pagado' => $pagado,
-                    'user_id' => $id_usuario,
-                    'office_id' => $request['office_id'],
-                    'metodo_pago' => $request['condiciones']
-                ]);
-            }else{
+            
+            $lotes = [];
+
+
+            $estados_lotes= Product::select([
+                'es_serial',
+                'id'
+             ])
+            ->whereIn('id',$ids)
+            ->get()->toArray();
+
+            foreach($productos as $prods){
+
+                $producto_pos = array_search($prods['id'], array_column($estados_lotes, 'id'));
+                $es_serial = $estados_lotes[$producto_pos]['es_serial'];
+                $estado_lote = 1;
+
+                if($es_serial == 1){
+                    $estado_lote = 0;
+                }
+
                 $array = [
-                    'error' => 2,
-                    'mensaje' => 'Hubo un problema al generar la compra'
+                    'buy_id' => $compra->id,
+                    'product_id' => $prods['id'],
+                    'paq' => ($prods['cantidad']['cant_paq']) ? $prods['cantidad']['cant_paq'] : 0,
+                    'und' =>  $prods['cantidad']['cant_und'],
+                    'provider_id' => $id_proveedor,
+                    'estado' => $estado_lote,
+                    'created_at' => $hora_actual,
+                    'updated_at' => $hora_actual
                 ];
-                return json($array);
-            }
+                array_push($lotes,$array);
+            };
+
+            Batch::insert($lotes);
+            
+            Payment::create([
+                'buy_id' => $compra->id,
+                'monto_pagado' => $pagado,
+                'user_id' => $id_usuario,
+                'office_id' => $request['office_id'],
+                'metodo_pago' => $condiciones
+            ]);
+             
+            
+            DB::commit();
 
         }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
             $array = array(
+                'mensaje_p' => 'Hubo un problema al generar la compra, intente nuevamente',
                 'mensaje' => $e->getMessage(),
                 'codigo' => $e->getCode(), 
                 'sql' => $e->getSql(),

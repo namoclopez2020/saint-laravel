@@ -45,7 +45,7 @@
     <!-- Custom Scrollbar-->
     <link rel="stylesheet" href="/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/assets/css/style.default.premium.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.sea.premium.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/assets/css/custom.css">
     <!-- Favicon-->
@@ -134,19 +134,19 @@
      function display_msg(mensaje,tipo){
       $(function () {
 
-Messenger.options = {
-    extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-    theme: 'flat',
-    messageDefaults: {
-        showCloseButton: true
-    }
-}
-Messenger().post({
-            message: mensaje,
-            type: tipo
-        });
+        Messenger.options = {
+            extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
+            theme: 'flat',
+            messageDefaults: {
+                showCloseButton: true
+            }
+        }
+        Messenger().post({
+                    message: mensaje,
+                    type: tipo
+                });
 
-});
+        });
      }
      
      </script>

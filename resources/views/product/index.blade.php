@@ -3,7 +3,7 @@
 @section('title','Productos')
     
 @section('content')
-<div class="container mt-3 pt-4">
+<div class="container-fluid mt-3 pt-4">
     <div class="row">
         <div class="col-11 col-md-12 col-lg-12 mx-auto">
            <div class="card">
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover" id="producto" style="width:100%">
-                            <thead class="bg-info text-light">
+                            <thead class="thead">
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Codigo</th>
