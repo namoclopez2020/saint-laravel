@@ -189,6 +189,7 @@
                         text:'Si'
                     });
                     radio.appendTo(div_radio);
+                    
                     label_radio.appendTo(div_radio);
                     div_radio.appendTo(div_b);
                     div_radio = $('<div/>',{
@@ -198,9 +199,10 @@
                         type:'radio',
                         class :'form-check-input',
                         name:'usa_empaque',
-                        id:'usa_empaque',
+                        id:'usa_empaque_1',
                         value:'0'
                     });
+                    
                     label_radio = $('<label/>',{
                         class :'form-check-label',
                         text:'No'
@@ -210,13 +212,45 @@
                     div_radio.appendTo(div_b);
                     
                     div_b.appendTo(div_form_row);
-                $('input[type=radio][name=usa_empaque]').change(function() {
-                    if(parseInt(this.value) === 1){
+                    div_b_1= $('<div/>',{
+                        class :'form-group col-md-3',
+                        style:'display:none'
+                    });
+                        label = $('<label/>',{
+                            class:'inputCity',
+                            text :'Cantidad por empaque'
+                        });
+                        label.appendTo(div_b_1);
+                        input = $('<input/>',{
+                            type:'text',
+                            class: 'form-control form-control-sm',
+                            id:'cantidad',
+                            placeholder:'Cantidad'
+                            
+                        });
+                        input.appendTo(div_b_1);
+                        div_b_1.appendTo(div_form_row);
+                    
+                    div_b_2 = $('<div/>',{
+                        class:'form-group col-md-3',
+                        style:'display:none'
+                    });
+                        label = $('<label/>',{
+                            class :'form-control-label',
+                            text : 'Medida para empaque'
+                        });
+                        select_opt = $('<select/>',{
+                            class:'form-control form-control-sm',
+                            id:'medida_paq',
+                        });
+                        options_va = '<option value="1">Paquete</option>';
+                        options_va += '<option value="2">Kilos</option>';
+                        options_va += '<option value="3">Litros</option>';
+                        select_opt.html(options_va);
+                        label.appendTo(div_b_2);
+                        select_opt.appendTo(div_b_2);
+                        div_b_2.appendTo(div_form_row);
 
-                    }else{
-                        
-                    }
-                });
                 div_b = $('<div/>',{
                     class:'form-group col-md-2'
                 });
@@ -231,7 +265,8 @@
                     radio = $('<input/>',{
                         type:'radio',
                         class :'form-check-input',
-                        name:'usa_impuesto'
+                        name:'usa_impuesto',
+                        value : '1',
                     });
                     label_radio = $('<label/>',{
                         class :'form-check-label',
@@ -240,12 +275,14 @@
                     radio.appendTo(div_radio);
                     label_radio.appendTo(div_radio);
                     div_radio.appendTo(div_b);
+  
                     div_radio = $('<div/>',{
                         class : 'form-check',
                     });
                     radio = $('<input/>',{
                         type:'radio',
                         class :'form-check-input',
+                        value : '0',
                         name:'usa_impuesto'
                     });
                     label_radio = $('<label/>',{
@@ -257,6 +294,25 @@
                     div_radio.appendTo(div_b);
                     
                     div_b.appendTo(div_form_row);
+
+                    div_b_3= $('<div/>',{
+                        class :'form-group col-md-2',
+                        style:'display:none'
+                    });
+                    label = $('<label/>',{
+                        class:'inputCity',
+                        text :'% de impuesto'
+                    });
+                    label.appendTo(div_b_3);
+                    input = $('<input/>',{
+                        type:'text',
+                        class: 'form-control form-control-sm',
+                        id:'impuesto_porc',
+                        placeholder:'18%'
+                        
+                    });
+                    input.appendTo(div_b_3);
+                    div_b_3.appendTo(div_form_row);
                 
                     div_b = $('<div/>',{
                         class:'form-group col-md-2'
@@ -272,7 +328,8 @@
                     radio = $('<input/>',{
                         type:'radio',
                         class :'form-check-input',
-                        name:'es_serial'
+                        name:'es_serial',
+                        id:'es_serial'
                     });
                     label_radio = $('<label/>',{
                         class :'form-check-label',
@@ -287,7 +344,8 @@
                     radio = $('<input/>',{
                         type:'radio',
                         class :'form-check-input',
-                        name:'es_serial'
+                        name:'es_serial',
+                        id:'es_serial_1'
                     });
                     label_radio = $('<label/>',{
                         class :'form-check-label',
@@ -298,7 +356,76 @@
                     div_radio.appendTo(div_b);
                     
                     div_b.appendTo(div_form_row);
-                
+
+                    div_b= $('<div/>',{
+                        class :'form-group col-md-3',
+                       
+                    });
+                    label = $('<label/>',{
+                        class:'inputCity',
+                        text :'Stock mínimo'
+                    });
+                    label.appendTo(div_b);
+                    row = $('<div/>',{
+                        class :'form-row'
+                    });
+                    input_c = $('<input/>',{
+                        type:'text',
+                        class: 'form-control form-control-sm col-4',
+                        id:'impuesto_porc',
+                        placeholder:'1',
+                        style:'display:none'
+                        
+                    });
+                    input_c.appendTo(row);
+                    label_c = $('<label/>',{
+                        class:'inputCity col-2',
+                        text :'PAQ',
+                        style:'display:none'
+                    });
+                    label_c.appendTo(row);
+                    input = $('<input/>',{
+                        type:'text',
+                        class: 'form-control form-control-sm col-4',
+                        id:'impuesto_porc',
+                        placeholder:'1'
+                        
+                    });
+                    input.appendTo(row);
+                    label = $('<label/>',{
+                        class:'inputCity col-2',
+                        text :'UND'
+                    });
+                    label.appendTo(row);
+                    row.appendTo(div_b);
+                    div_b.appendTo(div_form_row); 
+
+                    
+                    $('input[type=radio][name=usa_empaque]').change(function() {
+                        if(parseInt(this.value) === 1){
+                            div_b_1.show('slow');
+                            div_b_2.show('slow');
+                            $("#es_serial").prop("checked", true);
+                            $("#es_serial_1").prop("checked", false);
+                            $("#es_serial_1").attr("disabled", true);
+                            input_c.show('slow');
+                            label_c.show('slow');
+                        }else{
+                            div_b_1.hide('slow');
+                            div_b_2.hide('slow');
+                            input_c.hide('slow');
+                            label_c.hide('slow');
+                            $("#es_serial_1").attr("disabled", false);
+                            
+                        }
+                    });
+                    $('input[type=radio][name=usa_impuesto]').change(function() {
+                        if(parseInt(this.value) === 1){
+                            div_b_3.show('slow');
+                        }else{
+                            div_b_3.hide('slow'); 
+                        }
+                    });
             });
         }
         
