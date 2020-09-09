@@ -182,46 +182,7 @@ function tabla (){
 
 
 
-function producto (){
-   var dataTable = $('#producto').DataTable({
-      "language": {
-         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-         
-      },
-      'responsive': true,
-      "ajax" : "/producto",
-      "serverSide" : true,
-      "processing" : true,
-      "columns":[
-         {data: "id"},
-         {data: "nombre"},
-         {data: "codigo"},
-         {data: "created_at"},
-         {data: "esSerialText"},
 
-         {render: function(data,type,row){
-            return row['medida_paq']+"/"+row['medida_und'];
-         }},
-         {data: "fraccion"},
-         {render:function(data,type,row){
-            return row['min_paq']+"/"+row['min_und'];
-         }},
-         {render: function(data,type,row){
-            botones = "<div class='btn-group'>";
-            botones +="<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalmostrar' onclick='mostrar("+row['id']+")'> &nbsp;&nbsp;+ info&nbsp;&nbsp;</a>";
-            botones +="<a href='/product/"+row['id']+"/edit'  class='btn  btn-warning mr-1'  >";
-            botones +="<i class='fa fa-pencil'></i></a>";
-            if(parseInt(row['es_serial']) === 1){
-               botones += "<a class='btn btn-info mr-2' href='#' data-toggle='modal' data-target='#myModalseriales' onclick='ver_seriales("+row['id']+")'> Seriales</a>";
-            }
-            botones +="<button onclick='elim("+row['id']+")' class='btn  btn-danger'> <span class='fa fa-trash'></span></button>";
-            botones +="</div>";
-            
-            return botones;
-         }}
-      ]
-   })
-};
 
 
 function compra (){

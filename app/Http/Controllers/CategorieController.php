@@ -35,7 +35,12 @@ class CategorieController extends Controller
     {
         //
     }
-
+    public function listar()
+    {   
+        $categorie = Categorie::latest()->get();
+        return $categorie->toJson();
+        //
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -11,7 +11,7 @@
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info btn-sm rounded" onclick="">Guardar</button>
+          <button type="button" class="btn btn-info btn-sm rounded" onclick="nuevo_product_ajax()">Guardar</button>
           <button type="button" class="btn btn-secondary btn-sm rounded" data-dismiss="modal">Cancelar</button>
         </div>
       </div>

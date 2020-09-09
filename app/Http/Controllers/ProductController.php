@@ -10,6 +10,8 @@ use App\Warehouse;
 use App\Categorie;
 use App\product_provider;
 use App\Serial;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -54,42 +56,58 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request)
     {   
-        $product =  Product::create($request->validated());
+        $validated = $request->validated();
+        DB::beginTransaction();
+        try{
+            $nombre_producto = $request['nombre'];
+            $codigo = $request['codigo'];
+            $id_categoria = $request['categoria'];
+            $es_serial = $request['es_serial'];
+            $usa_impuesto = $request['usa_impuesto'];
+            $impuesto = $request['porcentaje_impuesto'];
+            $usa_empaque = $request['usa_empaque'];
+            $medida_paq = $request['medidas']['medida_paq'];
+            $medida_und = $request['medidas']['medida_und'];
+            $fraccion = $request['cantidades']['empaque'];
+            $min_paq = $request['cantidades']['min_paq'];
+            $min_und = $request['cantidades']['min_und'];
 
-        if($request['usa_empaque']):
-            $request->validate([
-                'fraccion' => 'required',
-                'medida_paq' => 'required',
-                'min_paq' => 'required'
-             ]);
-            
-            $product->usa_empaque = $request['usa_empaque'];
-            $product->medida_paq = $request['medida_paq'];
-            $product->fraccion = $request['fraccion'];
-            $product->min_paq = $request['min_paq'];
-            $product->save();
-        endif;
-        if($request['usa_impuesto']):
-            $request->validate([
-                'impuesto' => 'required'
-            ]);
-            
-            $product->impuesto = $request['impuesto'];
-            $product->save();  
-        endif;
+            $valores = [
+                'nombre' => $nombre_producto,
+                'codigo' => $codigo,
+                'categorie_id' => $id_categoria,
+                'es_serial' => $es_serial,
+                'impuesto' => ($impuesto) ?:"0",
+                'usa_empaque' => $usa_empaque,
+                'medida_paq' => $medida_paq,
+                'medida_und' => $medida_und,
+                'fraccion' => ($fraccion) ?:"0",
+                'min_paq' => ($min_paq) ?:"0",
+                'min_und' => $min_und
+            ];
 
-        //insertar los proveedores de productos
-        $contador = count($request['proveedor']);
-        for($i=0;$i<$contador;$i++){
-            product_provider::create([
-                'product_id' => $product->id,
-                'provider_id' => $request['proveedor'][$i]
-            ]);
+            $product =  Product::create($valores);
+
+            $array = [
+                'error' => 0,
+                'mensaje' => 'Producto Agregado Exitosamente'
+            ];
+            DB::commit();
+            return json_encode($array);
+
+
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            $array = array(
+                'mensaje_p' => 'Hubo un problema al guardar el producto, intente nuevamente',
+                'mensaje' => $e->getMessage(),
+                'codigo' => $e->getCode(), 
+                'sql' => $e->getSql(),
+                'bindings' => $e->getBindings(),
+            );
+            return $array;
         }
-
-        return true;
-       // Product::create($request->validated());
-       // return true;
+      
     }
 
     /**

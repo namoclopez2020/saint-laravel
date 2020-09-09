@@ -23,6 +23,7 @@ Route::resource('provider', 'ProviderController');
 
 Route::resource('client', 'ClientController');
 
+Route::get('categorie/listar', 'CategorieController@listar');
 Route::resource('categorie', 'CategorieController');
 
 Route::resource('office', 'OfficeController');

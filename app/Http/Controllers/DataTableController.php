@@ -9,6 +9,7 @@ use App\Provider;
 use App\User;
 use App\Product;
 use App\Buy;
+use Carbon\Carbon;
 
 class DataTableController extends Controller
 {
@@ -33,8 +34,9 @@ class DataTableController extends Controller
 
     public function producto(Request $request){
         
-        return datatables()->eloquent(Product::query())
+        return datatables()->eloquent(Product::query()->with('categorie'))
         ->addColumn('esSerialText', '{{$es_serial ? \'Sí\': \'No\' }}')
+        ->addColumn('fecha', '{{ Carbon\Carbon::parse($created_at)->diffForHumans() }}')
         ->toJson();
     }
 

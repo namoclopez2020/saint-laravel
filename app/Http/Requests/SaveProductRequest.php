@@ -26,21 +26,10 @@ class SaveProductRequest extends FormRequest
         return [
             'nombre' => 'required',
             'codigo' => 'required|unique:products',
-            'costo_anterior' => 'required',
-            'costo_promedio' => 'required',
-            'costo_actual' => 'required',
-            'precio1' => 'required',
-            'precio2' => 'required',
-            'precio3' => 'required',
-            'categorie_id' => 'required',
+            'categoria' => 'required',
             'es_serial' => 'required',
-            'warehouse_id' => 'required',
             'usa_empaque' => 'required',
-            'medida_und' => 'required',
-            'min_und' => 'required'
-
-
-
+           // 'min_und' => 'required'
         ];
     }
 }
